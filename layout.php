@@ -176,7 +176,20 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Loan Amount</span>
-              <span class="info-box-number">4,50,00,000</span>
+              <span class="info-box-number">
+                <?php
+                $connect = mysqli_connect("localhost", "root", "6325", "hma");
+                if ($connect->connect_error) {
+                  die("Connection Failed: " . $connect->connect_error);
+                }
+                $turnover = "SELECT SUM(net_loan_amount) FROM mis_details";
+                $result = $connect->query($turnover);
+                while ($row = $result->fetch_assoc()) {
+                    echo $row['SUM(net_loan_amount)']."<br>";
+                    }
+                mysqli_close($connect);
+                ?>
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>

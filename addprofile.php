@@ -1,5 +1,29 @@
-<?php 
-include('server.php');
+<?php
+
+$connect = mysqli_connect("localhost", "root", "6325", "hma");
+
+ if (isset($_POST['submit'])) {
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $referee_name = $_POST['referee_name'];
+  $referee_mobile = $_POST['referee_mobile'];
+  $password = $_POST['password'];
+  $joining_date = $_POST['joining_date'];
+  $experience = $_POST['experience'];
+  $advance_amount = $_POST['advance_amount'];
+  $address = $_POST['address'];
+
+  //conversion of date
+  //$converted_date = new DateTime($joining_date);
+  //$converted_date->format('Y-m-d');
+
+  $query = "INSERT INTO user_details (name, email, referee_name, referee_mobile, password, joining_date, experience, advance_amount, address) VALUES ('$name', '$email', '$referee_name', '$referee_mobile', '$password', '$joining_date', '$experience', '$advance_amount', '$address')";
+
+  mysqli_query($connect, $query);
+  header('location: addprofile.php'); //redirect to addprofile page after inserting
+}
+mysqli_close($connect);
+
 ?>
 
 
@@ -157,7 +181,7 @@ include('server.php');
       </ol>
         <!-- form starting -->
       <div class="tab-pane" id="settings">
-                <form class="form-horizontal" id='login' action="server.php" method="post">
+                <form class="form-horizontal" id='login' action="addprofile.php" method="post">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Name</label>
 
