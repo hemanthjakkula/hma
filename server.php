@@ -37,6 +37,10 @@ $connect = mysqli_connect("localhost", "root", "6325", "hma");
 	$advance_amount = $_POST['advance_amount'];
 	$address = $_POST['address'];
 
+	//conversion of date
+	//$converted_date = new DateTime($joining_date);
+	//$converted_date->format('Y-m-d');
+
 	$query = "INSERT INTO user_details (name, email, referee_name, referee_mobile, password, joining_date, experience, advance_amount, address) VALUES ('$name', '$email', '$referee_name', '$referee_mobile', '$password', '$joining_date', '$experience', '$advance_amount', '$address')";
 
 	mysqli_query($connect, $query);

@@ -208,22 +208,22 @@
                   die("Connection Failed: " . $connect->connect_error);
                 }
 
-                $select_all = "SELECT user_details.userid, user_details.name, amount_details.amount_given, amount_details.amount_given_date FROM user_details, amount_details WHERE user_details.userid = amount_details.userid";
+                $select_all = " SELECT user_details.userid, user_details.name, amount_details.amount_given, amount_details.amount_given_date FROM amount_details JOIN user_details ON user_details.userid = amount_details.userid" ;
+                
                 $result = $connect->query($select_all);
 
                 if ($result->num_rows > 0) {
                   echo "<tr>";
-                  echo "<table class='table table-hover'>";
-                  echo "<tr>";
-                  echo "<th>ID</th>";
-                  echo "<th>USER Name</th>";
-                  echo "<th>Paid Amount</th>";
-                  echo "<th>Paid Date</th>";
-                  echo "</tr>";
+                  echo "<table class='table table-hover'>
+                  <tr>
+                  <th>ID</th>
+                  <th>USER NAME</th>
+                  <th>Paid Amount</th>
+                  <th>Paid Date</th>
+                  </tr>";
                 //output the data of each row
                 while ($row = $result->fetch_assoc()) {
-                      echo "<tr><td>" .isset($row['user_details.userid']) ? $row["user_details.userid"]. "</td><td>" . $row["user_details.name"]. "</td><td>" . $row["amount_details.amount_given"]. "</td><td>" . $row["amount_details.amount_given_date"]. "</td></tr>" ;
-                     
+                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["amount_given_date"]. "</td></tr>" ;
                       }
                        echo "</table>";
                 }
