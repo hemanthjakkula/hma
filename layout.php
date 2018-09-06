@@ -268,111 +268,41 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+
+<?php
+//creating connection
+$connect = mysqli_connect("localhost", "root", "6325", "hma");
+//checking connection
+if ($connect->connect_error) {
+  die("Connection Failed: " . $connect->connect_error);
+}
+
+$select_all = "SELECT user_details.userid, user_details.name, amount_details.amount_total, amount_details.amount_given, amount_details.balance_amount, amount_details.advance_amount FROM amount_details JOIN  user_details ON amount_details.userid = user_details.userid";
+$result = $connect->query($select_all);
+
+if ($result->num_rows > 0) {
+  echo "<tr>";
+  echo "<table class='table table-hover'>
                 <tr>
                   <th>ID</th>
-                  <th>User</th>
-                  <th>Total</th>
-                  <th>Paid</th>
-                  <th>Balance</th>
+                  <th>USERNAME</th>
+                  <th>Total Amount to pay</th>
+                  <th>Paid Amount</th>
+                  <th>Balance Amount</th>
                   <th>Advance</th>
                   <th>Payment</th>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>Anjaneyulu</td>
-                  <td>1,00,000</td>
-                  <td>60,000</td>
-                  <td>0</td>
-                  <td>40,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Ravi</td>
-                  <td>1,00,000</td>
-                  <td>60,000</td>
-                  <td>20,000</td>
-                  <td>0 
-                  </td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                <tr>
-                  <td>157</td>
-                  <td>Hanumantha Rao</td>
-                  <td>40,000</td>
-                  <td>10,000</td>
-                  <td>5,000</td>
-                  <td>30,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Nagaraj</td>
-                  <td>40,000</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>40,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                 <tr>
-                  <td>219</td>
-                  <td>Ravi</td>
-                  <td>80,000</td>
-                  <td>80,000</td>
-                  <td>10000</td>
-                  <td>0</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                 <tr>
-                  <td>219</td>
-                  <td>Ravi</td>
-                  <td>1,00,000</td>
-                  <td>60,000</td>
-                  <td>0</td>
-                  <td>40,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                 <tr>
-                  <td>219</td>
-                  <td>Shiva</td>
-                  <td>60,000</td>
-                  <td>60,000</td>
-                  <td>10,000</td>
-                  <td>0</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                 <tr>
-                  <td>219</td>
-                  <td>Sekhar</td>
-                  <td>1,00,000</td>
-                  <td>60,000</td>
-                  <td>0</td>
-                  <td>40,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                 <tr>
-                  <td>219</td>
-                  <td>Chaitanya</td>
-                  <td>1,00,000</td>
-                  <td>60,000</td>
-                  <td>15,000</td>
-                  <td>40,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-                 <tr>
-                  <td>219</td>
-                  <td>Raghu</td>
-                  <td>70,000</td>
-                  <td>60,000</td>
-                  <td>0</td>
-                  <td>10,000</td>
-                  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">Pay</button></td>
-                </tr>
-              </table>
-            </div>
-            <!-- /.box-body -->
-
+                </tr>";
+  //output the data of each row
+  while ($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
+  }
+  echo "</table>";
+}
+else {
+  echo "0 results";
+}
+mysqli_close($connect);
+?>
           </div>
           <!-- /.box -->
         </div>
@@ -382,7 +312,7 @@
       </div>
       <!-- /.box -->
         <!-- modal  -->
-        <div class="modal modal-info fade" id="modal-info">
+        <div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -391,11 +321,11 @@
                 <h4 class="modal-title">Enter Amount</h4>
               </div>
               <div class="modal-body">
-                <p>Amount&hellip;</p>
+                <p>Amount...&hellip;</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline">Save changes</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
               </div>
             </div>
             <!-- /.modal-content -->
