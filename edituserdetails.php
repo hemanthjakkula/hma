@@ -89,17 +89,17 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="treeview active">
-          <a href="#">
+        <li>
+          <a href="layout.php">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="mis_detail.php">
             <i class="fa fa-table"></i> <span>MIS</span>
           </a>
         </li>
-        <li class="treeview">
+        <li>
           <a href="#">
             <i class="fa fa-files-o"></i>
             <span>MIS COMPARE</span>
@@ -108,23 +108,23 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="detailed_report.php">
             <i class="fa fa-th"></i> <span>Detailed Report</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="paymentdetails.php">
             <i class="fa fa-inr"></i>
             <span>Payment Details</span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="addprofile.php">
             <i class="fa fa-edit"></i> <span>Add Member</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+        <li class="active">
+          <a href="edituserdetails.php">
             <i class="fa fa-calendar"></i> <span>Edit Member Details</span>
           </a>
         </li>
@@ -155,7 +155,7 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">For the Month of AUGUST,2018</h3>
+          <h3 class="box-title">User Details</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -183,43 +183,43 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+              <?php
+//creating connection
+$connect = mysqli_connect("localhost", "root", "6325", "hma");
+//checking connection
+if ($connect->connect_error) {
+  die("Connection Failed: " . $connect->connect_error);
+}
+
+$select_all = "SELECT * FROM user_details";
+$result = $connect->query($select_all);
+
+if ($result->num_rows > 0) {
+  echo "<tr>";
+  echo "<table class='table table-hover'>
                 <tr>
                   <th>ID</th>
-                  <th>User</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Reason</th>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>John Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-success">Approved</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Alexander Pierce</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-warning">Pending</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-                <tr>
-                  <td>657</td>
-                  <td>Bob Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-primary">Approved</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Mike Doe</td>
-                  <td>11-7-2014</td>
-                  <td><span class="label label-danger">Denied</span></td>
-                  <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                </tr>
-              </table>
+                  <th>USERNAME</th>
+                  <th>email</th>
+                  <th>Referee Name</th>
+                  <th>Referee Mobile</th>
+                  <th>Password</th>
+                  <th>Date of Joining</th>
+                  <th>Experience</th>
+                  <th>Advance amount</th>
+                  <th>Address</th>
+                </tr>";
+  //output the data of each row
+  while ($row = $result->fetch_assoc()) {
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
+  }
+  echo "</table>";
+}
+else {
+  echo "0 results";
+}
+mysqli_close($connect);
+?>
             </div>
             <!-- /.box-body -->
           </div>

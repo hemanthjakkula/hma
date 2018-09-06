@@ -141,7 +141,7 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="edituserdetails.php">
             <i class="fa fa-calendar"></i> <span>Edit Member Details</span>
           </a>
         </li>
