@@ -1,3 +1,5 @@
+<?php require 'connect_db.php' ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +69,7 @@
         <ul class="nav navbar-nav">
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="login.php" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="login.php">
               <span class="hidden-xs">Logout</span>
             </a>
           </li>
@@ -92,17 +94,6 @@
             <p>Muralidhar Rao</p>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -157,14 +148,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Main Dashboard
+        MIS DETAILS
         <small>Blank example to the fixed layout</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -180,29 +166,9 @@
           <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Responsive Hover Table</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
 <?php
-//creating connection
-$connect = mysqli_connect("localhost", "root", "6325", "hma");
-//checking connection
-if ($connect->connect_error) {
-  die("Connection Failed: " . $connect->connect_error);
-}
-
 $select_all = "SELECT * FROM mis_details";
 $result = $connect->query($select_all);
 
@@ -231,7 +197,6 @@ if ($result->num_rows > 0) {
 else {
   echo "0 results";
 }
-mysqli_close($connect);
 ?>
 
             </div>
@@ -328,3 +293,4 @@ mysqli_close($connect);
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
+<?php mysqli_close($connect); ?>

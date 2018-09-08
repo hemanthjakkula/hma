@@ -1,3 +1,4 @@
+<?php require 'connect_db.php' ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,3 +83,4 @@
 </script>
 </body>
 </html>
+<?php mysqli_close($connect); ?>
