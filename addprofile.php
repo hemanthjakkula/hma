@@ -1,6 +1,6 @@
 <?php
 
-$connect = mysqli_connect("localhost", "root", "6325", "hma");
+require 'connect_db.php';
 
  if (isset($_POST['submit'])) {
   $name = $_POST['name'];
@@ -22,7 +22,7 @@ $connect = mysqli_connect("localhost", "root", "6325", "hma");
   mysqli_query($connect, $query);
   header('location: addprofile.php'); //redirect to addprofile page after inserting
 }
-mysqli_close($connect);
+
 
 ?>
 
@@ -107,17 +107,6 @@ mysqli_close($connect);
             <p>Muralidhar Rao</p>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -174,11 +163,6 @@ mysqli_close($connect);
       <h1>
         Add User
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
         <!-- form starting -->
       <div class="tab-pane" id="settings">
                 <form class="form-horizontal" id='login' action="addprofile.php" method="post">
@@ -300,3 +284,6 @@ mysqli_close($connect);
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
+<?php
+mysqli_close($connect);
+?>

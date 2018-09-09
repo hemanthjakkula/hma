@@ -1,3 +1,4 @@
+<?php require 'connect_db.php' ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,3 +73,4 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php mysqli_close($connect); ?>

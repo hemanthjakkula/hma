@@ -1,3 +1,4 @@
+<?php require 'connect_db.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +51,7 @@
         <ul class="nav navbar-nav">
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="login.php">
               <span class="hidden-xs">Logout</span>
             </a>
           </li>
@@ -75,17 +76,6 @@
             <p>Muralidhar Rao</p>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -143,11 +133,6 @@
         Fixed Layout
         <small>Blank example to the fixed layout</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -156,41 +141,14 @@
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">User Details</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-          </div>
         </div>
         <div class="box-body">
           <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Responsive Hover Table</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-            </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <?php
-//creating connection
-$connect = mysqli_connect("localhost", "root", "6325", "hma");
-//checking connection
-if ($connect->connect_error) {
-  die("Connection Failed: " . $connect->connect_error);
-}
-
 $select_all = "SELECT * FROM user_details";
 $result = $connect->query($select_all);
 
@@ -209,17 +167,16 @@ if ($result->num_rows > 0) {
                   <th>Advance amount</th>
                   <th>Address</th>
                 </tr>";
-  //output the data of each row
-  while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
-  }
-  echo "</table>";
-}
-else {
-  echo "0 results";
-}
-mysqli_close($connect);
-?>
+                       //output the data of each row
+                   while ($row = $result->fetch_assoc()) {
+                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
+                     }
+                echo "</table>";
+                      }
+                    else {
+                       echo "0 results";
+                        }
+              ?>
             </div>
             <!-- /.box-body -->
           </div>
@@ -279,3 +236,6 @@ mysqli_close($connect);
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
+<?php
+mysqli_close($connect);
+?>

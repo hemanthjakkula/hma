@@ -1,3 +1,4 @@
+<?php require 'connect_db.php' ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
         <ul class="nav navbar-nav">
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="login.php" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="login.php">
               <span class="hidden-xs">Logout</span>
             </a>
           </li>
@@ -92,17 +93,6 @@
             <p>Muralidhar Rao</p>
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -160,11 +150,6 @@
         Main Dashboard
         <small>Blank example to the fixed layout</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Layout</a></li>
-        <li class="active">Fixed</li>
-      </ol>
     </section>
 
     <!-- Main content -->
@@ -180,52 +165,35 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Responsive Hover Table</h3>
-
-              <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
+              <h3 class="box-title">Detailed Report</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
-                <tr>
+                <?php 
+                $select_all = " SELECT user_details.userid, user_details.name, amount_details.amount_given, amount_details.amount_given_date FROM amount_details JOIN user_details ON user_details.userid = amount_details.userid" ;
+                
+                $result = $connect->query($select_all);
+
+                if ($result->num_rows > 0) {
+                  echo "<tr>";
+                  echo "<table class='table table-hover'>
+                  <tr>
                   <th>ID</th>
-                  <th>User</th>
-                  <th>Paid</th>
-                  <th>Date</th>
-                </tr>
-                <tr>
-                  <td>183</td>
-                  <td>Anjaneyulu</td>
-                  <td>60,000</td>
-                  <td>05-08-2018</td>
-                </tr>
-                <tr>
-                  <td>219</td>
-                  <td>Anjaneyulu</td>
-                  <td>40,000</td>
-                  <td>14-07-2018</td>
-                </tr>
-                <tr>
-                  <td>657</td>
-                  <td>Anjaneylu</td>
-                  <td>60,000</td>
-                  <td>02-06-2018</td>
-                </tr>
-                <tr>
-                  <td>175</td>
-                  <td>Anjaneyulu</td>
-                  <td>60,000</td>
-                  <td>05-07-2018</td>
-                </tr>
-              </table>
+                  <th>USER NAME</th>
+                  <th>Paid Amount</th>
+                  <th>Paid Date</th>
+                  </tr>";
+                //output the data of each row
+                while ($row = $result->fetch_assoc()) {
+                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["amount_given_date"]. "</td></tr>" ;
+                      }
+                       echo "</table>";
+                }
+                else {
+                        echo "0 results";
+                      }
+                 ?>
             </div>
             <!-- /.box-body -->
 
@@ -309,3 +277,4 @@
 <script src="dist/js/demo.js"></script>
 </body>
 </html>
+<?php mysqli_close($connect); ?>

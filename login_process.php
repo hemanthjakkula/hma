@@ -3,10 +3,12 @@
 
 <!-- php code starts -->
 <?php
+require 'connect_db.php';
 
-header('Access-Control-Allow-Origin: *');
-
-$connect = mysqli_connect("localhost", "root", "6325", "hma");
+if (mysqli_connect_errno())
+{
+  echo "Failed to connect to MySQL: ". mysqli_connect_error();
+}
 
 
 if (isset($_POST['adminname']))
