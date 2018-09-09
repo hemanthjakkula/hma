@@ -178,7 +178,7 @@
               <span class="info-box-text">Loan Amount</span>
               <span class="info-box-number">
                 <?php
-                $connect = mysqli_connect("localhost", "root", "6325", "hma");
+                $connect = mysqli_connect("localhost", "root", "mysql", "hma");
                 if ($connect->connect_error) {
                   die("Connection Failed: " . $connect->connect_error);
                 }
@@ -271,7 +271,7 @@
 
 <?php
 //creating connection
-$connect = mysqli_connect("localhost", "root", "6325", "hma");
+$connect = mysqli_connect("localhost", "root", "mysql", "hma");
 //checking connection
 if ($connect->connect_error) {
   die("Connection Failed: " . $connect->connect_error);
@@ -294,7 +294,7 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' id=". $row["userid"].">Edit</button></td></tr>";
   }
   echo "</table>";
 }
@@ -321,11 +321,12 @@ mysqli_close($connect);
                 <h4 class="modal-title">Enter Amount</h4>
               </div>
               <div class="modal-body">
-                <p>Amount...&hellip;</p>
-              </div>
+                <!-- <p>Amount...&hellip;</p> -->
+                <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount Eg:1000 ">
+              <br>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary modelamount">Save changes</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -360,7 +361,7 @@ mysqli_close($connect);
       <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
     </ul>
     <!-- Tab panes -->
-    
+
   </aside>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -381,5 +382,15 @@ mysqli_close($connect);
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script>
+$( document ).ready(function() {
+  $('.modelamount').click(function(event){
+    var id = $(this).closest('.testclass').attr('id');
+    var amount = $('#amount').val();
+    console.log(id+amount);
+  });
+});
+</script>
 </body>
 </html>
+
