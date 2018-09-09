@@ -294,7 +294,7 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' id=". $row["userid"].">Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=". $row["userid"].">Edit</button></td></tr>";
   }
   echo "</table>";
 }
@@ -322,12 +322,14 @@ mysqli_close($connect);
               </div>
               <div class="modal-body">
                 <!-- <p>Amount...&hellip;</p> -->
+                <form action="processamount.php" method="post">
                 <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount Eg:1000 ">
-              <br>
-              <div class="modal-footer">
+                <input type="hidden" class="form-control" id="userid" name="userid">
+                <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary modelamount">Save changes</button>
+                <input type="submit" class="btn btn-primary modelamount" value="Submit">
               </div>
+                </form>
             </div>
             <!-- /.modal-content -->
           </div>
@@ -383,11 +385,12 @@ mysqli_close($connect);
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <script>
-$( document ).ready(function() {
-  $('.modelamount').click(function(event){
-    var id = $(this).closest('.testclass').attr('id');
-    var amount = $('#amount').val();
-    console.log(id+amount);
+$(function () {
+  $('#modal-default').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var userid = button.data('userid');
+    var modal = $(this);
+    modal.find('#userid').val(userid);
   });
 });
 </script>
