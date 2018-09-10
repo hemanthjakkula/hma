@@ -161,19 +161,6 @@
         <div class="box-header with-border">
           <h3 class="box-title">For the month of AUGUST, 2018 or from 01-08-2018 to 31-08-2018</h3>
           <h4 class="box-title">OF ALL USERS or PATICULAR USER</h4>
-          <!-- Date range -->
-          <div class="form-group">
-                <label>Date range:</label>
-
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="reservation">
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
         </div>
         <div class="box-body">
           <div class="row">
@@ -283,7 +270,7 @@ else {
       <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
     </ul>
     <!-- Tab panes -->
-
+    
   </aside>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
@@ -296,9 +283,6 @@ else {
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- date-range-picker -->
-<script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- SlimScroll -->
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -307,13 +291,6 @@ else {
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<!-- Page script -->
-<script>
-  $(function () {
-    //Date range picker
-    $('#reservation').daterangepicker()
-  })
-</script>
 </body>
 </html>
 <?php mysqli_close($connect); ?>
