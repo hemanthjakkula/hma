@@ -5,12 +5,6 @@
 <?php
 require 'connect_db.php';
 
-if (mysqli_connect_errno())
-{
-  echo "Failed to connect to MySQL: ". mysqli_connect_error();
-}
-
-
 if (isset($_POST['adminname']))
 {
 $adminname = $_POST['adminname'];

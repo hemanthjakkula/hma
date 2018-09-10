@@ -6,6 +6,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>HMA | Fixed Layout</title>
+  <!-- Table2excel installation including scripts -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery-table2excel/dist/jquery.table2excel.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script> 
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -162,14 +168,15 @@
           <h3 class="box-title">For the month of AUGUST, 2018 or from 01-08-2018 to 31-08-2018</h3>
           <h4 class="box-title">OF ALL USERS or PATICULAR USER</h4>
           <!-- Date range -->
-          <div class="form-group">
+          <div class="form-group" >
                 <label>Date range:</label>
-
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" class="form-control pull-right" id="reservation">
+                  <div class="col-sm-4">
+                  <input type="text" class="form-control pull-left" id="reservation">
+                </div>
                 </div>
                 <!-- /.input group -->
               </div>
@@ -187,7 +194,7 @@ $result = $connect->query($select_all);
 
 if ($result->num_rows > 0) {
   echo "<tr>";
-  echo "<table class='table table-hover'>
+  echo "<table id='table_id' class='table table-hover' >
                 <tr>
                   <th>ID</th>
                   <th>Customer Name</th>
@@ -211,7 +218,11 @@ else {
   echo "0 results";
 }
 ?>
-
+<!-- code for table2excel -->
+            <div id="live_data"></div>
+            <form action="excel.php" method="post">
+              <input type="submit" name="export_excel" class="btn btn-success" value="Import to Excel">
+            </form>
             </div>
             <!-- /.box-body -->
 
@@ -312,6 +323,13 @@ else {
   $(function () {
     //Date range picker
     $('#reservation').daterangepicker()
+
+    $("#yourHtmTable").table2excel({
+    exclude: ".excludeThisClass",
+    name: "Worksheet Name",
+    filename: "SomeFile" //do not include extension
+    });
+
   })
 </script>
 </body>
