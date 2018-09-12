@@ -183,7 +183,15 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Total Amount</span>
-              <span class="info-box-number">5,86,000</span>
+              <span class="info-box-number">
+                <?php
+                $turnover = "SELECT SUM(amount_total) FROM amount_details";
+                $result = $connect->query($turnover);
+                while ($row = $result->fetch_assoc()) {
+                    echo $row['SUM(amount_total)']."<br>";
+                    }
+                ?>
+              </span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -196,7 +204,14 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Paid Amount</span>
-              <span class="info-box-number">3,13,648</span>
+              <span class="info-box-number">
+              <?php
+                $turnover = "SELECT SUM(amount_given) FROM amount_details";
+                $result = $connect->query($turnover);
+                while ($row = $result->fetch_assoc()) {
+                    echo $row['SUM(amount_given)']."<br>";
+                    }
+                ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -209,7 +224,14 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Balance Amount</span>
-              <span class="info-box-number">2,72,352</span>
+              <span class="info-box-number">
+              <?php
+                $turnover = "SELECT SUM(balance_amount) FROM amount_details";
+                $result = $connect->query($turnover);
+                while ($row = $result->fetch_assoc()) {
+                    echo $row['SUM(balance_amount)']."<br>";
+                    }
+                ?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
