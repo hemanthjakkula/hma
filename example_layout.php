@@ -125,11 +125,6 @@
           </a>
         </li>
         <li>
-          <a href="detailed_report.php">
-            <i class="fa fa-th"></i> <span>Detailed Report</span>
-          </a>
-        </li>
-        <li>
           <a href="paymentdetails.php">
             <i class="fa fa-inr"></i>
             <span>Payment Details</span>

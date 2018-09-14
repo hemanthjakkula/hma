@@ -116,11 +116,6 @@
           </a>
         </li>
         <li>
-          <a href="detailed_report.php">
-            <i class="fa fa-th"></i> <span>Detailed Report</span>
-          </a>
-        </li>
-        <li>
           <a href="paymentdetails.php">
             <i class="fa fa-inr"></i>
             <span>Payment Details</span>
@@ -280,7 +275,7 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=". $row["userid"].">Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_total"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["balance_amount"]. "</td><td>" . $row["advance_amount"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=". $row["userid"].">PAY</button></td></tr>";
   }
   echo "</table>";
 }

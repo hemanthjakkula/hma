@@ -115,11 +115,6 @@
             </span>
           </a>
         </li>
-        <li>
-          <a href="detailed_report.php">
-            <i class="fa fa-th"></i> <span>Detailed Report</span>
-          </a>
-        </li>
         <li class="active">
           <a href="paymentdetails.php">
             <i class="fa fa-inr"></i>
@@ -161,6 +156,25 @@
         <div class="box-header with-border">
           <h3 class="box-title">For the month of AUGUST, 2018</h3><br>
           <h4 class="box-title">From 01-08-2018 to 31-08-2018</h4>
+                  <div class="box-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Select User</label>
+                <select class="form-control select2" style="width: 100%;">
+                  <?php 
+                    $query = "SELECT name FROM user_details";
+                    $result = mysqli_query($connect, $query);
+                  ?>
+                  <?php while ($row1 = mysqli_fetch_array($result)):; ?>
+                      <option><?php echo $row1[0]; ?></option>
+                    <?php endwhile; ?>
+                  <option selected="selected">All Users</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
         <div class="box-body">
           <div class="row">

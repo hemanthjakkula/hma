@@ -122,11 +122,6 @@
           </a>
         </li>
         <li>
-          <a href="detailed_report.php">
-            <i class="fa fa-th"></i> <span>Detailed Report</span>
-          </a>
-        </li>
-        <li>
           <a href="paymentdetails.php">
             <i class="fa fa-inr"></i>
             <span>Payment Details</span>
@@ -210,7 +205,8 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default' data-userid=".$row["userid"].
+    ">Edit</button></td></tr>";
   }
   echo "</table>";
 }
