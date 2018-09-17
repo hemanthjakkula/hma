@@ -161,7 +161,9 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>Select User</label>
-                <select class="form-control select2" style="width: 100%;">
+                <!-- here name="user" is important -->
+                <form action = "paymentdetails.php" method = "post">
+                <select class="form-control select2" name="user" style="width: 100%;"> 
                   <?php 
                     $query = "SELECT name FROM user_details";
                     $result = mysqli_query($connect, $query);
@@ -169,8 +171,20 @@
                   <?php while ($row1 = mysqli_fetch_array($result)):; ?>
                       <option><?php echo $row1[0]; ?></option>
                     <?php endwhile; ?>
-                  <option selected="selected">All Users</option>
+                  <option selected="selected">All users</option>
                 </select>
+                <input type="submit" name="submit" value="submit">
+              </form>
+                <?php
+                    if (isset($_POST["user"])) {
+                      # code...
+                      $selected = $_POST['user'];
+                      echo "This is selected:".$selected;
+                    }
+                    else {
+                      echo "nothing selected";
+                    }
+                      ?>
               </div>
             </div>
           </div>
@@ -183,7 +197,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
                 <?php 
-                $select_all = " SELECT user_details.userid, user_details.name, amount_details.amount_given, amount_details.amount_given_date FROM amount_details JOIN user_details ON user_details.userid = amount_details.userid" ;
+                $select_all = " SELECT user_details.userid, user_details.name, amount_details.amount_given, amount_details.amount_given_date FROM amount_details JOIN user_details ON user_details.userid = amount_details.userid " ;
                 
                 $result = $connect->query($select_all);
 

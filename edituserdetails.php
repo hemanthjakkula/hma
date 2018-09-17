@@ -211,12 +211,11 @@ if ($result->num_rows > 0) {
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Enter Amount</h4>
+                <h4 class="modal-title">Edit Details</h4>
               </div>
               <div class="modal-body">
                 <!-- <p>Amount...&hellip;</p> -->
                 <form action="editdetailsmodal.php" method="post">
-                <input type="text" class="form-control" id="amount" name="amount" placeholder="amount">
                 <input type="hidden" class="form-control" id="userid" name="userid">
                 Username:<br>
                 <input type="text" class="form-control" id="name" name="name" placeholder="name">
