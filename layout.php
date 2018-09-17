@@ -303,17 +303,18 @@ else {
               <div class="modal-body">
                 <!-- <p>Amount...&hellip;</p> -->
                 <form action="processamount.php" method="post">
-                <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount Eg:1000 ">
-                <input type="hidden" class="form-control" id="userid" name="userid">
-                <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary modelamount" value="Submit">
-              </div>
+                  <input type="text" class="form-control" id="amount" name="amount" placeholder="Amount Eg:1000 ">
+                  <input type="hidden" class="form-control" id="userid" name="userid">
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <input type="submit" class="btn btn-primary modelamount" value="Submit">
+                    </div>
                 </form>
-            </div>
+              </div>
             <!-- /.modal-content -->
-          </div>
+            </div>
           <!-- /.modal-dialog -->
+          </div>
         </div>
         <!-- /.modal close -->
 

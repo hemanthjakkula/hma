@@ -29,6 +29,23 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
+<style>
+    .example-modal .modal {
+      position: relative;
+      top: auto;
+      bottom: auto;
+      right: auto;
+      left: auto;
+      display: block;
+      z-index: 1;
+    }
+
+    .example-modal .modal {
+      background: transparent !important;
+    }
+  </style>
+
 <!-- ADD THE CLASS fixed TO GET A FIXED HEADER AND SIDEBAR LAYOUT -->
 <!-- the fixed layout is not compatible with sidebar-mini -->
 <body class="hold-transition skin-blue fixed sidebar-mini">
@@ -164,7 +181,7 @@ if ($result->num_rows > 0) {
                 </tr>";
                        //output the data of each row
                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default'>Edit</button></td></tr>";
+                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=".$row["userid"]." data-name=".$row["name"]." data-email=".$row["email"]." data-referee_name=".$row["referee_name"]." data-referee_mobile=".$row["referee_mobile"]." data-password=".$row["password"]." data-joining_date=".$row["joining_date"]." data-experience=".$row["experience"]." data-address=".$row["address"].">Edit</button></td></tr>";
                      }
                 echo "</table>";
                       }
@@ -176,6 +193,7 @@ if ($result->num_rows > 0) {
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+
         </div>
       </div>
         </div>
@@ -186,7 +204,48 @@ if ($result->num_rows > 0) {
         <!-- /.box-footer-->
       </div>
       <!-- /.box -->
-
+<!-- modal  -->
+        <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Enter Amount</h4>
+              </div>
+              <div class="modal-body">
+                <!-- <p>Amount...&hellip;</p> -->
+                <form action="editdetailsmodal.php" method="post">
+                <input type="text" class="form-control" id="amount" name="amount" placeholder="amount">
+                <input type="hidden" class="form-control" id="userid" name="userid">
+                Username:<br>
+                <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                email:<br>
+                <input type="text" class="form-control" id="email" name="email" placeholder="email">
+                Referee Name:<br>
+                <input type="text" class="form-control" id="referee_name" name="referee_name" placeholder="Referee name">
+                Referee Mobile:<br>
+                <input type="text" class="form-control" id="referee_mobile" name="referee_mobile" placeholder="Referee Mobile">
+                Password:<br>
+                <input type="text" class="form-control" id="password" name="password" placeholder="password">
+                Date of Joining:<br>
+                <input type="text" class="form-control" id="joining_date" name="joining_date" placeholder="Date of Joining">
+                Experience:<br>
+                <input type="text" class="form-control" id="experience" name="experience" placeholder="Experience">
+                Address:<br>
+                <input type="text" class="form-control" id="address" name="username" placeholder="address">
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary modelamount" value="Submit">
+                </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+      </div>
+        <!-- /.modal close -->
     </section>
     <!-- /.content -->
   </div>
@@ -229,6 +288,33 @@ if ($result->num_rows > 0) {
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+<script>
+$(function () {
+  $('#modal-default').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var userid = button.data('userid');
+    var name = button.data('name');
+    var email = button.data('email');
+    var referee_name = button.data('referee_name');
+    var referee_mobile = button.data('referee_mobile');
+    var password = button.data('password');
+    var joining_date = button.data('joining_date');
+    var experience = button.data('experience');
+    var address = button.data('address');
+    var modal = $(this);
+    modal.find('#userid').val(userid);
+    modal.find('#name').val(name);
+    modal.find('#email').val(email);
+    modal.find('#referee_name').val(referee_name);
+    modal.find('#referee_mobile').val(referee_mobile);
+    modal.find('#password').val(password);
+    modal.find('#joining_date').val(joining_date);
+    modal.find('#experience').val(experience);
+    modal.find('#address').val(address);
+    
+  });
+});
+</script>
 </body>
 </html>
 <?php
