@@ -11,7 +11,16 @@
   <script src="bower_components/jquery-table2excel/dist/jquery.table2excel.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
-   
+  
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -205,8 +214,7 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info' data-toggle='modal' data-target='#modal-default' data-userid=".$row["userid"].
-    ">Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=".$row["userid"]." data-customer_name=".$row["customer_name"]." data-los_number=".$row["los_number"]." data-loan_amount=".$row["loan_amount"]." data-net_loan_amount=".$row["net_loan_amount"]." data-disbursed_date=".$row["disbursed_date"]." data-location=".$row["location"]." data-loan_type=".$row["loan_type"]." data-entity=".$row["entity"].">Edit</button></td></tr>";
   }
   echo "</table>";
 }
@@ -240,22 +248,32 @@ else {
                 <h4 class="modal-title">Edit MIS</h4>
               </div>
               <div class="modal-body">
-                <form>
-
-                  <p>User: <u>Anjaneyulu</u></p>
-                  <p>LOS/App No: <u>589427</u></p><br>
-                  <p>Bank Name: <u>HDFC</u></p><br>
-                  <p>Net Loan Amount: <u>8,00,000</u></p><br>
-                  <p>Disbursed Date: <u>19-08-2018</u></p><br>
-                  <p>Location: <u>Gadwal</u></p><br>
-                  <p>Loan Type: <u>Business Loan</u></p><br>
-                  <p>Entity: <u>None</u></p><br>
-                </form>
-                <p>MIS details will display here&hellip;</p>
-              </div>
-              <div class="modal-footer">
+                <!-- <p>Amount...&hellip;</p> -->
+              <form action="misprocess.php" method="post">
+                <input type="hidden" class="form-control" id="userid" name="userid">
+                Customer Name:<br>
+                <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Customer Name">
+                Los/APP No:<br>
+                <input type="text" class="form-control" id="los_number" name="los_number" placeholder="Los Number">
+                Loan Amount:<br>
+                <input type="text" class="form-control" id="loan_amount" name="loan_amount" placeholder="Loan Amount">
+                Net Loan Amount:<br>
+                <input type="text" class="form-control" id="net_loan_amount" name="net_loan_amount" placeholder="Net Loan Amount">
+                Disbursed Date:<br>
+                <input type="text" class="form-control" id="disbursed_date" name="disbursed_date" placeholder="Disbursed Date">
+                Location:<br>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                Loan Type:<br>
+                <input type="text" class="form-control" id="loan_type" name="loan_type" placeholder="Loan Type">
+                Entity:<br>
+                <input type="text" class="form-control" id="entity" name="entity" placeholder="entity">
+                Bank Name:<br>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Bank Name">
+                <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <input type="submit" class="btn btn-primary modelamount" value="Submit">
+                </div>
+                </form>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -276,17 +294,6 @@ else {
     reserved.
   </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-
-  </aside>
-  <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
@@ -321,6 +328,35 @@ else {
     });
 
   })
+
+</script>
+<script type="text/javascript">
+   $(function () {
+  $('#modal-default').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var userid = button.data('userid');
+    var customer_name = button.data('customer_name');
+    var los_number = button.data('los_number');
+    var loan_amount = button.data('loan_amount');
+    var net_loan_amount = button.data('net_loan_amount');
+    var disbursed_date = button.data('disbursed_date');
+    var location = button.data('location');
+    var loan_type = button.data('loan_type');
+    var entity = button.data('entity');
+    var bank_name = button.data('bank_name');
+    var modal = $(this);
+    modal.find('#userid').val(userid);
+    modal.find('#customer_name').val(customer_name);
+    modal.find('#los_number').val(los_number);
+    modal.find('#loan_amount').val(loan_amount);
+    modal.find('#net_loan_amount').val(net_loan_amount);
+    modal.find('#disbursed_date').val(disbursed_date);
+    modal.find('#location').val(location);
+    modal.find('#loan_type').val(loan_type);
+    modal.find('#entity').val(entity);
+    modal.find('#bank_name').val(bank_name);
+  });
+});
 </script>
 </body>
 </html>
