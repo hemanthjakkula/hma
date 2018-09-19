@@ -1,6 +1,3 @@
-
-
-
 <!-- php code starts -->
 <?php
 require 'connect_db.php';

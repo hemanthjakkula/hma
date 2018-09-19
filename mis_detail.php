@@ -173,13 +173,42 @@
           <h4 class="box-title">OF ALL USERS or PATICULAR USER</h4>
           <!-- Date range -->
           <div class="form-group" >
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Select User</label>
+                <!-- here name="user" is important -->
+                <form action = "mis_detail.php" method = "post">
+                <select class="form-control select2" name="user" style="width: 100%;"> 
+                  <?php 
+                    $query = "SELECT name, userid FROM user_details";
+                    $result = mysqli_query($connect, $query);
+                  ?>
+                  <?php while ($row1 = mysqli_fetch_array($result)):; ?>
+                      <option value=<?php echo $row1[1]; ?>><?php echo $row1[0]; ?></option>
+                    <?php endwhile; ?>
+                  <option selected="selected">All users</option>
+                </select>
+                <input type="submit" name="submit" value="submit">
+              </form>
+                <?php
+                    if (isset($_POST["user"])) {
+                      # code...
+                      $selected = $_POST['user'];
+                      echo "This is selected:".$selected;
+                    }
+                    else {
+                      echo "nothing selected";
+                    }
+                      ?>
+              </div>
+            </div>
                 <label>Date range:</label>
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <div class="col-sm-4">
-                  <input type="text" class="form-control pull-left" id="reservation">
+                  <input type="text" class="form-control pull-right" id="reservation">
                 </div>
                 </div>
                 <!-- /.input group -->
@@ -214,7 +243,7 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=".$row["userid"]." data-customer_name=".$row["customer_name"]." data-los_number=".$row["los_number"]." data-loan_amount=".$row["loan_amount"]." data-net_loan_amount=".$row["net_loan_amount"]." data-disbursed_date=".$row["disbursed_date"]." data-location=".$row["location"]." data-loan_type=".$row["loan_type"]." data-entity=".$row["entity"].">Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid='".$row["userid"]."' data-customer_name='".$row["customer_name"]."' data-los_number='".$row["los_number"]."' data-loan_amount='".$row["loan_amount"]."' data-net_loan_amount='".$row["net_loan_amount"]."' data-disbursed_date='".$row["disbursed_date"]."' data-location='".$row["location"]."' data-loan_type='".$row["loan_type"]."' data-entity='".$row["entity"]."'>Edit</button></td></tr>";
   }
   echo "</table>";
 }
@@ -274,11 +303,11 @@ else {
                 <input type="submit" class="btn btn-primary modelamount" value="Submit">
                 </div>
                 </form>
-              </div>
             </div>
             <!-- /.modal-content -->
           </div>
           <!-- /.modal-dialog -->
+        </div>
         </div>
         <!-- /.modal close -->
     </section>
@@ -316,20 +345,6 @@ else {
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- Page script -->
-<script>
-  $(function () {
-    //Date range picker
-    $('#reservation').daterangepicker()
-
-    $("#yourHtmTable").table2excel({
-    exclude: ".excludeThisClass",
-    name: "Worksheet Name",
-    filename: "SomeFile" //do not include extension
-    });
-
-  })
-
-</script>
 <script type="text/javascript">
    $(function () {
   $('#modal-default').on('show.bs.modal', function (event) {
@@ -357,6 +372,20 @@ else {
     modal.find('#bank_name').val(bank_name);
   });
 });
+</script>
+<script>
+  $(function () {
+    //Date range picker
+    $('#reservation').daterangepicker()
+
+    $("#yourHtmTable").table2excel({
+    exclude: ".excludeThisClass",
+    name: "Worksheet Name",
+    filename: "SomeFile" //do not include extension
+    });
+
+  });
+
 </script>
 </body>
 </html>

@@ -201,7 +201,7 @@
               <span class="info-box-text">Paid Amount</span>
               <span class="info-box-number">
               <?php
-                $turnover = "SELECT SUM(amount_given) FROM amount_details";
+                $turnover = "SELECT SUM(amount_given) FROM payment_details";
                 $result = $connect->query($turnover);
                 while ($row = $result->fetch_assoc()) {
                     echo $row['SUM(amount_given)']."<br>";
