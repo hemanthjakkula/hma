@@ -150,7 +150,7 @@
     <section class="content-header">
       <h1>
         Payment Details
-        <small>Blank example to the fixed layout</small>
+        <small>Helps to know the Payment Details of Users</small>
       </h1>
     </section>
 
@@ -160,8 +160,6 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">For the month of AUGUST, 2018</h3><br>
-          <h4 class="box-title">From 01-08-2018 to 31-08-2018</h4>
                   <div class="box-body">
           <div class="row">
             <div class="col-md-4">
@@ -171,22 +169,27 @@
                 <form action = "paymentdetails.php" method = "post">
                 <select class="form-control select2" name="user" style="width: 100%;"> 
                   <?php 
-                    $query = "SELECT name FROM user_details";
+                    $query = "SELECT name, userid FROM user_details";
                     $result = mysqli_query($connect, $query);
                   ?>
                   <?php while ($row1 = mysqli_fetch_array($result)):; ?>
-                      <option><?php echo $row1[0]; ?></option>
+                      <option value=<?php echo $row1[1]?>><?php echo $row1[0]; ?></option>
                     <?php endwhile; ?>
                   <option selected="selected">All users</option>
                 </select>
-                <input type="submit" name="submit" value="submit">
-              </form>
                 <?php
-                    if (isset($_POST["user"])) {
+                    if (isset($_POST["user"], $_POST["reservation"])) {
                       # code...
                       $selected = $_POST['user'];
+                      $array = explode("-", $_POST["reservation"]);
                       echo "This is selected:".$selected;
-                      echo "dates are:" .$dates;
+                      echo "<br>";
+                      for ($i=0; $i < count($array) ; $i++) { 
+                        ${'var'.$i} = $array[$i];
+                      }
+                      echo "var0 is ".$var0;
+                      echo "<br>";
+                      echo "var1 is ".$var1;
                     }
                     else {
                       echo "nothing selected";
@@ -200,8 +203,10 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                   <div class="col-sm-4">
-                  <input type="text" class="form-control pull-right" id="reservation">
+                  <input type="text" class="form-control pull-right" id="reservation" name="reservation">
                 </div>
+                <input type="submit" name="submit" class="btn btn-success" value="submit">
+              </form>
                 </div>
                 <!-- /.input group -->
           </div>
@@ -214,7 +219,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
                 <?php 
-                $select_all = " SELECT user_details.userid, user_details.name, amount_details.amount_given, amount_details.amount_given_date FROM amount_details JOIN user_details ON user_details.userid = amount_details.userid " ;
+                $select_all = " SELECT payment_details.userid, user_details.name, payment_details.amount_given, payment_details.amount_given_date FROM payment_details JOIN user_details ON user_details.userid = payment_details.userid " ;
                 
                 $result = $connect->query($select_all);
 
@@ -248,28 +253,6 @@
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
-        <!-- modal  -->
-        <div class="modal modal-info fade" id="modal-info">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Enter Amount</h4>
-              </div>
-              <div class="modal-body">
-                <p>Amount&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline">Save changes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal close -->
     </section>
     <!-- /.content -->
   </div>
@@ -319,7 +302,7 @@
 <script>
   $(function () {
     //Date range picker
-    $('input[name="dates"]').daterangepicker();
+     $('#reservation').daterangepicker()
   });
 
 </script>

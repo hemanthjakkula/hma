@@ -144,7 +144,6 @@
     <section class="content-header">
       <h1>
         Main Dashboard
-        <small>Blank example to the fixed layout</small>
       </h1>
     </section>
 

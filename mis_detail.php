@@ -165,15 +165,13 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">For the month of AUGUST, 2018 or from 01-08-2018 to 31-08-2018</h3>
-          <h4 class="box-title">OF ALL USERS or PATICULAR USER</h4>
           <!-- Date range -->
           <div class="form-group" >
             <div class="col-md-4">
               <div class="form-group">
                 <label>Select User</label>
                 <!-- here name="user" is important -->
-                <form action = "test.php" method = "post">
+                <form action = "mis_detail.php" method = "post">
                 <select class="form-control select2" name="user" style="width: 100%;"> 
                   <?php 
                     $query = "SELECT name, userid FROM user_details";
@@ -186,17 +184,22 @@
                 </select>
                 
                 <?php
-                    // if (isset($_POST["user"], $_POST["qwerty"])) {
-                      
-                    //   $selected = $_POST['user'];
-                    //   $selected1 = $_POST['qwerty'];
-                      
-                    //   echo "This is selected:".$selected;
-                    //   echo "This is selected:".$selected1;
-                    // }
-                    // else {
-                    //   echo "nothing selected";
-                    // }
+                    if (isset($_POST["user"], $_POST["reservation"])) {
+                      # code...
+                      $selected = $_POST['user'];
+                      $array = explode("-", $_POST["reservation"]);
+                      echo "This is selected:".$selected;
+                      echo "<br>";
+                      for ($i=0; $i < count($array) ; $i++) { 
+                        ${'var'.$i} = $array[$i];
+                      }
+                      echo "var0 is ".$var0;
+                      echo "<br>";
+                      echo "var1 is ".$var1;
+                    }
+                    else {
+                      echo "nothing selected";
+                    }
                       ?>
               </div>
             </div>
@@ -206,12 +209,12 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                   <div class="col-sm-4"   >
-                  <input type="text" class="form-control pull-right" id="reservation" value="reservation" name="reservation">
+                  <input type="text" class="form-control pull-right" id="reservation" name="reservation">
                 </div>
+                  <input type="submit" name="submit" class="btn btn-success" value="submit">
+              </form> 
                 </div>
                 <!-- /.input group -->
-                <input type="submit" name="submit" value="submit">
-              </form>
               </div>
               <!-- /.form group -->
         </div>
@@ -258,7 +261,6 @@ else {
             </form>
             </div>
             <!-- /.box-body -->
-
           </div>
           <!-- /.box -->
         </div>
