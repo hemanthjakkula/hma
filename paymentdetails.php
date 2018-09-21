@@ -186,6 +186,7 @@
                       # code...
                       $selected = $_POST['user'];
                       echo "This is selected:".$selected;
+                      echo "dates are:" .$dates;
                     }
                     else {
                       echo "nothing selected";
@@ -318,7 +319,7 @@
 <script>
   $(function () {
     //Date range picker
-    $('#reservation').daterangepicker()
+    $('input[name="dates"]').daterangepicker();
   });
 
 </script>

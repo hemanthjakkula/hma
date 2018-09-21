@@ -173,7 +173,7 @@
               <div class="form-group">
                 <label>Select User</label>
                 <!-- here name="user" is important -->
-                <form action = "mis_detail.php" method = "post">
+                <form action = "test.php" method = "post">
                 <select class="form-control select2" name="user" style="width: 100%;"> 
                   <?php 
                     $query = "SELECT name, userid FROM user_details";
@@ -184,30 +184,34 @@
                     <?php endwhile; ?>
                   <option selected="selected">All users</option>
                 </select>
-                <input type="submit" name="submit" value="submit">
-              </form>
+                
                 <?php
-                    if (isset($_POST["user"])) {
-                      # code...
-                      $selected = $_POST['user'];
-                      echo "This is selected:".$selected;
-                    }
-                    else {
-                      echo "nothing selected";
-                    }
+                    // if (isset($_POST["user"], $_POST["qwerty"])) {
+                      
+                    //   $selected = $_POST['user'];
+                    //   $selected1 = $_POST['qwerty'];
+                      
+                    //   echo "This is selected:".$selected;
+                    //   echo "This is selected:".$selected1;
+                    // }
+                    // else {
+                    //   echo "nothing selected";
+                    // }
                       ?>
               </div>
             </div>
                 <label>Date range:</label>
-                <div class="input-group">
+                <div class="input-group" >
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <div class="col-sm-4">
-                  <input type="text" class="form-control pull-right" id="reservation">
+                  <div class="col-sm-4"   >
+                  <input type="text" class="form-control pull-right" id="reservation" value="reservation" name="reservation">
                 </div>
                 </div>
                 <!-- /.input group -->
+                <input type="submit" name="submit" value="submit">
+              </form>
               </div>
               <!-- /.form group -->
         </div>

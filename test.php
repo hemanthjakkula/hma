@@ -1,15 +1,18 @@
+
+
 <?php
+foreach ($_POST as $key => $value) {
+    echo "Field ".htmlspecialchars($key)." is ".htmlspecialchars($value)."<br>";
+}
 
-require 'vendor/autoload.php';
+$array = explode("-", $_POST["reservation"]);
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+echo "<br>";
+for ($i=0; $i < count($array) ; $i++) { 
+	${'var'.$i} = $array[$i];
+}
+echo "var0 is ".$var0;
+echo "<br>";
+echo "var1 is ".$var1;
 
-$spreadsheet = new Spreadsheet();
-$sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('A1', 'Hello World !');
-
-$writer = new Xlsx($spreadsheet);
-$writer->save('hello world.xlsx');
-
-?>
+?> 
