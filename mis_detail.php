@@ -180,7 +180,7 @@
                   <?php while ($row1 = mysqli_fetch_array($result)):; ?>
                       <option value=<?php echo $row1[1]; ?>><?php echo $row1[0]; ?></option>
                     <?php endwhile; ?>
-                  <option selected="selected">All users</option>
+                  <option selected="selected" value="allusers" >All users</option>
                 </select>
               </div>
             </div>
@@ -210,22 +210,21 @@ if (isset($_POST["user"], $_POST["reservation"])) {
                       # code...
                       $selected = $_POST['user'];
                       $array = explode("-", $_POST["reservation"]);
-                      for ($i=0; $i < count($array) ; $i++) { 
+                      for ($i=0; $i < count($array) ; $i++) {
                         ${'var'.$i} = $array[$i];
                       }
                       //converting date format to mysql format
                       $start_date = date("Y/m/d", strtotime($var0));
                       $end_date = date("Y/m/d", strtotime($var1));
 
-                      $select_all = " SELECT * FROM mis_details WHERE userid = '".$_POST["user"]."' AND disbursed_date >= CAST(".$start_date." AS DATE) AND disbursed_date <= CAST(".$end_date." AS DATE) " ;
-                    }
-                    else {
-                      // Current timestamp is assumed, so these find first and last day of THIS month
-                      $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
-                      $last_day_this_month  = date('Y-m-d');
-                      $select_all = "SELECT * FROM mis_details WHERE disbursed_date >= CAST(".$first_day_this_month." AS DATE) AND disbursed_date <= CAST(".$last_day_this_month." AS DATE) ";
-                    }
-                    echo $select_all;
+                      if($_POST["user"] == 'allusers') {
+                        $user_clause = "";
+                      } else {
+                        $user_clause = "userid = '".$_POST["user"]."' AND";
+                      }
+
+                      $select_all = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
+                      }
 $result = $connect->query($select_all);
 
 if ($result->num_rows > 0) {

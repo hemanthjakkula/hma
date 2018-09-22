@@ -12,13 +12,14 @@ require 'connect_db.php';
   $experience = $_POST['experience'];
   $advance_amount = $_POST['advance_amount'];
   $address = $_POST['address'];
+ 
 
   //conversion of date
   //$converted_date = new DateTime($joining_date);
   //$converted_date->format('Y-m-d');
 
   $query = "INSERT INTO user_details (name, email, referee_name, referee_mobile, password, joining_date, experience, advance_amount, address) VALUES ('$name', '$email', '$referee_name', '$referee_mobile', '$password', '$joining_date', '$experience', '$advance_amount', '$address')";
-
+  
   mysqli_query($connect, $query);
   header('location: addprofile.php'); //redirect to addprofile page after inserting
 }
@@ -224,11 +225,83 @@ require 'connect_db.php';
                       <input type="text" class="form-control" id="advance_amount" name="advance_amount" placeholder="Advance Amount">
                     </div>
                   </div>
+
+                  <center> <h2>ENTER COMMISSION DETAILS</h2> </center>
+                  <table id='table_id' class='table table-hover' style="width: 100%" >
+                    <tr>
+                      <th>Bank name</th>
+                      <th>HDFC</th>
+                      <th>ICICI</th>
+                      <th>AXIS</th>
+                      <th>FULLERTON</th>
+                      <th>BAJAJ</th>
+                      <th>TATA</th>
+                      <th>DHFL</th>
+                      <th>MAGMA</th>
+                      <th>INDIA BULLS</th>
+                      <th>SRIRAM</th>
+                    </tr>
+                    <tr>
+                      <th>Personal Loan</th>
+                      <th><input type="number" class="col-sm-10" name="pl_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_icici"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_axis"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_tata"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_magma"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_inida_bulls"></th>
+                      <th><input type="number" class="col-sm-10" name="pl_sriram"></th>
+                    </tr>
+                    <tr>
+                      <th>Business Loan</th>
+                      <th><input type="number" class="col-sm-10" name="bl_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_icici"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_axis"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_tata"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_magma"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_inida_bulls"></th>
+                      <th><input type="number" class="col-sm-10" name="bl_sriram"></th>
+                    </tr>
+                    <tr>
+                      <th>LAP</th>
+                      <th><input type="number" class="col-sm-10" name="lap_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_icici"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_axis"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_tata"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_magma"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_inida_bulls"></th>
+                      <th><input type="number" class="col-sm-10" name="lap_sriram"></th>
+                    </tr>
+                    <tr>
+                      <th>Housing Loan</th>
+                      <th><input type="number" class="col-sm-10" name="hl_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_icici"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_axis"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_tata"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_magma"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_inida_bulls"></th>
+                      <th><input type="number" class="col-sm-10" name="hl_sriram"></th>
+                    </tr>
+                  </table>
                   <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" name="submit" class="btn btn-danger">Submit</button>
+                    <div class="col-sm-10">
+                      <center>
+                      <button type="submit" name="submit" class="btn btn-success btn-lg">Submit</button>
+                    </center>
                     </div>
                   </div>
+                </div>
                 </form>
               </div>
         <!-- form ends -->

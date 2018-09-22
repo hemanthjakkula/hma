@@ -1,11 +1,18 @@
 <?php 
-
 require 'connect_db.php';
 $output = '';
-
 if(isset($_POST["export_excel"]))
 {
-	$sql = "SELECT * FROM mis_details ORDER BY userid DESC";
+	if(isset($_POST["userid"])) {
+		if($_POST["user"] == 'allusers') {
+			$user_clause = "";
+		  } else {
+			$user_clause = "userid = '".$_POST["user"]."' AND";
+		  }
+		$sql = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$_POST["start"]."' AS DATE) AND disbursed_date <= CAST('".$_POST["end"]."' AS DATE) " ;
+	} else {
+		$sql = "SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$_POST["start"]."' AS DATE) AND disbursed_date <= CAST('".$_POST["end"]."' AS DATE) ";
+	}
 	$result = mysqli_query($connect, $sql);
 	if(mysqli_num_rows($result) > 0)
 	{
@@ -46,4 +53,3 @@ if(isset($_POST["export_excel"]))
 }
 mysqli_close($connect);
 ?>
-
