@@ -182,25 +182,6 @@
                     <?php endwhile; ?>
                   <option selected="selected">All users</option>
                 </select>
-                
-                <?php
-                    if (isset($_POST["user"], $_POST["reservation"])) {
-                      # code...
-                      $selected = $_POST['user'];
-                      $array = explode("-", $_POST["reservation"]);
-                      echo "This is selected:".$selected;
-                      echo "<br>";
-                      for ($i=0; $i < count($array) ; $i++) { 
-                        ${'var'.$i} = $array[$i];
-                      }
-                      echo "var0 is ".$var0;
-                      echo "<br>";
-                      echo "var1 is ".$var1;
-                    }
-                    else {
-                      echo "nothing selected";
-                    }
-                      ?>
               </div>
             </div>
                 <label>Date range:</label>
@@ -208,7 +189,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <div class="col-sm-4"   >
+                  <div class="col-md-6"   >
                   <input type="text" class="form-control pull-right" id="reservation" name="reservation">
                 </div>
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
@@ -225,7 +206,26 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
 <?php
-$select_all = "SELECT * FROM mis_details";
+if (isset($_POST["user"], $_POST["reservation"])) {
+                      # code...
+                      $selected = $_POST['user'];
+                      $array = explode("-", $_POST["reservation"]);
+                      for ($i=0; $i < count($array) ; $i++) { 
+                        ${'var'.$i} = $array[$i];
+                      }
+                      //converting date format to mysql format
+                      $start_date = date("Y/m/d", strtotime($var0));
+                      $end_date = date("Y/m/d", strtotime($var1));
+
+                      $select_all = " SELECT * FROM mis_details WHERE userid = '".$_POST["user"]."' AND disbursed_date >= CAST(".$start_date." AS DATE) AND disbursed_date <= CAST(".$end_date." AS DATE) " ;
+                    }
+                    else {
+                      // Current timestamp is assumed, so these find first and last day of THIS month
+                      $first_day_this_month = date('Y-m-01'); // hard-coded '01' for first day
+                      $last_day_this_month  = date('Y-m-d');
+                      $select_all = "SELECT * FROM mis_details WHERE disbursed_date >= CAST(".$first_day_this_month." AS DATE) AND disbursed_date <= CAST(".$last_day_this_month." AS DATE) ";
+                    }
+                    echo $select_all;
 $result = $connect->query($select_all);
 
 if ($result->num_rows > 0) {
