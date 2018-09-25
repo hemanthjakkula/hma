@@ -22,7 +22,8 @@ if(isset($adminname) && isset($password))
   }
   else
   {
-    echo "invalid credentials";
+    $message = "Invalid Username or Password";
+    echo "<script type = 'text/javascript'>alert('$message');</script> ";
   }
 }
 

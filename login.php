@@ -1,4 +1,4 @@
-<?php require 'connect_db.php' ?>
+<?php require 'connect_db.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +38,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form id='login' action="login_process.php" method="post">
+    <form id='login' action="loginprocess.php" method="post">
       <div class="form-group has-feedback">
         <label>Username:</label>
         <input type="text" id="adminname" name="adminname"class="form-control" placeholder="Username ">
@@ -72,15 +72,7 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
+
 </body>
 </html>
 <?php mysqli_close($connect); ?>

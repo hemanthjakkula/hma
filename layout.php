@@ -1,4 +1,6 @@
-<?php require 'connect_db.php' ?>
+<?php require 'connect_db.php' ;
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>

@@ -1,4 +1,7 @@
-<?php require 'connect_db.php' ?>
+<?php 
+require 'connect_db.php';
+session_start();
+?>
 
 <!DOCTYPE html>
 <html>
@@ -260,10 +263,15 @@ else {
 ?>
 <!-- code for table2excel -->
             <div id="live_data"></div>
-            <form action="excel.php" method="post"> 
-              <input type="hidden" name="user" value=".$_POST["user"].">
-              <input type="hidden" name="start_date">
-              <input type="hidden" name="end_date">
+            <form action="excel.php" method="post">
+              <?php
+              if (isset($_POST["user"]))
+              {
+                $_SESSION['username'] = $_POST["user"]; 
+                $_SESSION['start_date'] = $start_date;
+                $_SESSION['end_date'] = $end_date;
+              }
+               ?>
               <input type="submit" name="export_excel" class="btn btn-success" value="Import to Excel">
             </form>
             </div>

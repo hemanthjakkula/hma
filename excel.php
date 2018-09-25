@@ -1,18 +1,13 @@
 <?php 
+session_start();
+$_POST["user"] = $_SESSION['username'];
+$start_date = $_SESSION['start_date'];
+$end_date = $_SESSION['end_date'];
 require 'connect_db.php';
 $output = '';
 if(isset($_POST["export_excel"]))
 {
 if (isset($_POST["user"])) {
-                      # code...
-                      $selected = $_POST['user'];
-                      $array = explode("-", $_POST["reservation"]);
-                      for ($i=0; $i < count($array) ; $i++) {
-                        ${'var'.$i} = $array[$i];
-                      }
-                      //converting date format to mysql format
-                      $start_date = date("Y/m/d", strtotime($var0));
-                      $end_date = date("Y/m/d", strtotime($var1));
 
                       if($_POST["user"] == 'allusers') {
                         $user_clause = "";
@@ -22,11 +17,12 @@ if (isset($_POST["user"])) {
 
                       $select_all = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
                       }
-                      else {
-                        $select_all = "SELECT * FROM mis_details LIMIT 10 ";
-                      }
-	$result = mysqli_query($connect, $select_all);
-	if(mysqli_num_rows($result) > 0)
+else {
+    $select_all = "SELECT * FROM mis_details LIMIT 10 ";
+    }
+	$result = $connect->query($select_all);
+	
+	if($result->num_rows > 0)
 	{
 		$output .= '
 		<table class="table" border="1" >
@@ -62,6 +58,12 @@ if (isset($_POST["user"])) {
 		header("Content-Disposition: attachment; filename=mis.xlsx");
 		echo $output;
 	}
+}
+else {
+	$message = "No Data to Download";
+      echo "<script type = 'text/javascript'>alert('$message');</script> ";
+      //header will not work we should use Javascript
+      echo "<script>location.href='mis_detail.php'</script>";
 }
 mysqli_close($connect);
 ?>
