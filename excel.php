@@ -3,17 +3,29 @@ require 'connect_db.php';
 $output = '';
 if(isset($_POST["export_excel"]))
 {
-	if(isset($_POST["userid"])) {
-		if($_POST["user"] == 'allusers') {
-			$user_clause = "";
-		  } else {
-			$user_clause = "userid = '".$_POST["user"]."' AND";
-		  }
-		$sql = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$_POST["start"]."' AS DATE) AND disbursed_date <= CAST('".$_POST["end"]."' AS DATE) " ;
-	} else {
-		$sql = "SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$_POST["start"]."' AS DATE) AND disbursed_date <= CAST('".$_POST["end"]."' AS DATE) ";
-	}
-	$result = mysqli_query($connect, $sql);
+if (isset($_POST["user"])) {
+                      # code...
+                      $selected = $_POST['user'];
+                      $array = explode("-", $_POST["reservation"]);
+                      for ($i=0; $i < count($array) ; $i++) {
+                        ${'var'.$i} = $array[$i];
+                      }
+                      //converting date format to mysql format
+                      $start_date = date("Y/m/d", strtotime($var0));
+                      $end_date = date("Y/m/d", strtotime($var1));
+
+                      if($_POST["user"] == 'allusers') {
+                        $user_clause = "";
+                      } else {
+                        $user_clause = "userid = '".$_POST["user"]."' AND";
+                      }
+
+                      $select_all = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
+                      }
+                      else {
+                        $select_all = "SELECT * FROM mis_details LIMIT 10 ";
+                      }
+	$result = mysqli_query($connect, $select_all);
 	if(mysqli_num_rows($result) > 0)
 	{
 		$output .= '

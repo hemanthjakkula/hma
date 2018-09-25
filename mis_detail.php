@@ -206,6 +206,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
 <?php
+
 if (isset($_POST["user"], $_POST["reservation"])) {
                       # code...
                       $selected = $_POST['user'];
@@ -225,6 +226,10 @@ if (isset($_POST["user"], $_POST["reservation"])) {
 
                       $select_all = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
                       }
+                      else {
+                        $select_all = "SELECT * FROM mis_details LIMIT 10 ";
+                      }
+
 $result = $connect->query($select_all);
 
 if ($result->num_rows > 0) {
@@ -255,7 +260,10 @@ else {
 ?>
 <!-- code for table2excel -->
             <div id="live_data"></div>
-            <form action="excel.php" method="post">
+            <form action="excel.php" method="post"> 
+              <input type="hidden" name="user" value=".$_POST["user"].">
+              <input type="hidden" name="start_date">
+              <input type="hidden" name="end_date">
               <input type="submit" name="export_excel" class="btn btn-success" value="Import to Excel">
             </form>
             </div>

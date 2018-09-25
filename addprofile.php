@@ -12,15 +12,73 @@ require 'connect_db.php';
   $experience = $_POST['experience'];
   $advance_amount = $_POST['advance_amount'];
   $address = $_POST['address'];
+  $pl_hdfc = $_POST['pl_hdfc'];
+  $pl_icici = $_POST['pl_icici'];
+  $pl_axis = $_POST['pl_axis'];
+  $pl_fullerton = $_POST['pl_fullerton'];
+  $pl_bajaj = $_POST['pl_bajaj'];
+  $pl_tata = $_POST['pl_tata'];
+  $pl_dhfl = $_POST['pl_dhfl'];
+  $pl_magma = $_POST['pl_magma'];
+  $pl_indiabulls = $_POST['pl_indiabulls'];
+  $pl_sriram = $_POST['pl_sriram'];
+  $bl_hdfc = $_POST['bl_hdfc'];
+  $bl_icici = $_POST['bl_icici'];
+  $bl_axis = $_POST['bl_axis'];
+  $bl_fullerton = $_POST['bl_fullerton'];
+  $bl_bajaj = $_POST['bl_bajaj'];
+  $bl_tata = $_POST['bl_tata'];
+  $bl_dhfl = $_POST['bl_dhfl'];
+  $bl_magma = $_POST['bl_magma'];
+  $bl_indiabulls = $_POST['bl_indiabulls'];
+  $bl_sriram = $_POST['bl_sriram'];
+  $lap_hdfc = $_POST['lap_hdfc'];
+  $lap_icici = $_POST['lap_icici'];
+  $lap_axis = $_POST['lap_axis'];
+  $lap_fullerton = $_POST['lap_fullerton'];
+  $lap_bajaj = $_POST['lap_bajaj'];
+  $lap_tata = $_POST['lap_tata'];
+  $lap_dhfl = $_POST['lap_dhfl'];
+  $lap_magma = $_POST['lap_magma'];
+  $lap_indiabulls = $_POST['lap_indiabulls'];
+  $lap_sriram = $_POST['lap_sriram'];
+  $hl_hdfc = $_POST['hl_hdfc'];
+  $hl_icici = $_POST['hl_icici'];
+  $hl_axis = $_POST['hl_axis'];
+  $hl_fullerton = $_POST['hl_fullerton'];
+  $hl_bajaj = $_POST['hl_bajaj'];
+  $hl_tata = $_POST['hl_tata'];
+  $hl_dhfl = $_POST['hl_dhfl'];
+  $hl_magma = $_POST['hl_magma'];
+  $hl_indiabulls = $_POST['hl_indiabulls'];
+  $hl_sriram = $_POST['hl_sriram'];
+  $plgvt_hdfc = $_POST['plgvt_hdfc'];
+  $plgvt_icici = $_POST['plgvt_icici'];
+  $plgvt_axis = $_POST['plgvt_axis'];
+  $plgvt_fullerton = $_POST['plgvt_fullerton'];
+  $plgvt_bajaj = $_POST['plgvt_bajaj'];
+  $plgvt_tata = $_POST['plgvt_tata'];
+  $plgvt_dhfl = $_POST['plgvt_dhfl'];
+  $plgvt_magma = $_POST['plgvt_magma'];
+  $plgvt_indiabulls = $_POST['plgvt_indiabulls'];
+  $plgvt_sriram = $_POST['plgvt_sriram'];
  
+  $query = "INSERT INTO user_details (name, email, referee_name, referee_mobile, password, joining_date, experience, advance_amount, address) VALUES ('$name', '$email', '$referee_name', '$referee_mobile', '$password', '$joining_date', '$experience', '$advance_amount', '$address');";
 
-  //conversion of date
-  //$converted_date = new DateTime($joining_date);
-  //$converted_date->format('Y-m-d');
-
-  $query = "INSERT INTO user_details (name, email, referee_name, referee_mobile, password, joining_date, experience, advance_amount, address) VALUES ('$name', '$email', '$referee_name', '$referee_mobile', '$password', '$joining_date', '$experience', '$advance_amount', '$address')";
+  $query .= "INSERT INTO commision_structure(userid, pl_hdfc, pl_icici, pl_axis, pl_fullerton,pl_bajaj, pl_tata, pl_dhfl, pl_magma, pl_indiabulls, pl_sriram, bl_hdfc, bl_icici, bl_axis, bl_fullerton, bl_bajaj, bl_tata, bl_dhfl, bl_magma, bl_indiabulls, bl_sriram, lap_hdfc, lap_icici, lap_axis, lap_fullerton, lap_bajaj, lap_tata, lap_dhfl, lap_magma, lap_indiabulls, lap_sriram, hl_hdfc, hl_icici, hl_axis, hl_fullerton, hl_bajaj, hl_tata, hl_dhfl, hl_magma, hl_indiabulls, hl_sriram, plgvt_hdfc, plgvt_icici, plgvt_axis, plgvt_fullerton, plgvt_bajaj, plgvt_tata, plgvt_dhfl, plgvt_magma, plgvt_indiabulls, plgvt_sriram ) VALUES (LAST_INSERT_ID(), '$pl_hdfc', '$pl_icici', '$pl_axis', '$pl_fullerton', '$pl_bajaj', '$pl_tata', '$pl_dhfl','$pl_magma','$pl_indiabulls', '$pl_sriram', '$bl_hdfc', '$bl_icici', '$bl_axis', '$bl_fullerton', '$bl_bajaj', '$bl_tata', '$bl_dhfl', '$bl_magma','$bl_indiabulls', '$bl_sriram', '$lap_hdfc', '$lap_icici', '$lap_axis', '$lap_fullerton', '$lap_bajaj', '$lap_tata', '$lap_dhfl', '$lap_magma', '$lap_indiabulls', '$lap_sriram', '$hl_hdfc', '$hl_icici', '$hl_axis', '$hl_fullerton', '$hl_bajaj', '$hl_tata', '$hl_dhfl', '$hl_magma','$hl_indiabulls', '$hl_sriram', '$plgvt_hdfc', '$plgvt_icici', '$plgvt_axis', '$plgvt_fullerton', '$plgvt_bajaj', '$plgvt_tata', '$plgvt_dhfl', '$plgvt_magma', '$plgvt_indiabulls', '$plgvt_sriram' ) ";
   
-  mysqli_query($connect, $query);
+  if (mysqli_multi_query($connect, $query)) {
+    # code...
+    do {
+      if ($result=mysqli_store_result($connect)) {
+
+        mysqli_free_result($result);
+
+      }
+    }
+    while (mysqli_next_result($connect)); 
+  }
+  
   header('location: addprofile.php'); //redirect to addprofile page after inserting
 }
 
@@ -160,7 +218,7 @@ require 'connect_db.php';
         Add User
       </h1>
         <!-- form starting -->
-      <div class="tab-pane" id="settings">
+      <div class="tab-panel" id="settings">
                 <form class="form-horizontal" id='login' action="addprofile.php" method="post">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Name</label>
@@ -243,55 +301,68 @@ require 'connect_db.php';
                     </tr>
                     <tr>
                       <th>Personal Loan</th>
-                      <th><input type="number" class="col-sm-10" name="pl_hdfc"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_icici"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_axis"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_fullerton"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_bajaj"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_tata"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_dhfl"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_magma"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_inida_bulls"></th>
-                      <th><input type="number" class="col-sm-10" name="pl_sriram"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_icici"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_axis"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_tata"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_magma"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_indiabulls"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="pl_sriram"></th>
                     </tr>
                     <tr>
                       <th>Business Loan</th>
-                      <th><input type="number" class="col-sm-10" name="bl_hdfc"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_icici"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_axis"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_fullerton"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_bajaj"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_tata"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_dhfl"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_magma"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_inida_bulls"></th>
-                      <th><input type="number" class="col-sm-10" name="bl_sriram"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_icici"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_axis"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_tata"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_magma"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_indiabulls"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="bl_sriram"></th>
                     </tr>
                     <tr>
                       <th>LAP</th>
-                      <th><input type="number" class="col-sm-10" name="lap_hdfc"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_icici"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_axis"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_fullerton"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_bajaj"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_tata"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_dhfl"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_magma"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_inida_bulls"></th>
-                      <th><input type="number" class="col-sm-10" name="lap_sriram"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_icici"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_axis"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5"name="lap_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_tata"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_magma"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_indiabulls"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="lap_sriram"></th>
                     </tr>
                     <tr>
                       <th>Housing Loan</th>
-                      <th><input type="number" class="col-sm-10" name="hl_hdfc"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_icici"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_axis"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_fullerton"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_bajaj"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_tata"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_dhfl"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_magma"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_inida_bulls"></th>
-                      <th><input type="number" class="col-sm-10" name="hl_sriram"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_icici"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_axis"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_tata"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_magma"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_indiabulls"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="hl_sriram"></th>
+                    </tr>
+                    <tr>
+                      <th>GOVT-PL</th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_hdfc"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_icici"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_axis"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_fullerton"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_bajaj"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_tata"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_dhfl"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_magma"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_indiabulls"></th>
+                      <th><input type="number" class="col-sm-10" step="0.01" min="0" max="5" name="plgvt_sriram"></th>
                     </tr>
                   </table>
                   <div class="form-group">
