@@ -116,12 +116,12 @@ session_start();
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="active">
+        <li>
           <a href="mis_detail.php">
             <i class="fa fa-table"></i> <span>MIS</span>
           </a>
         </li>
-        <li>
+        <li class="active">
           <a href="mis_compare.php">
             <i class="fa fa-files-o"></i>
             <span>MIS COMPARE</span>
@@ -172,28 +172,13 @@ session_start();
           <div class="form-group" >
             <div class="col-md-4">
               <div class="form-group">
-                <label>Select User</label>
                 <!-- here name="user" is important -->
-                <form action = "mis_detail.php" method = "post">
-                <select class="form-control select2" name="user" style="width: 100%;"> 
-                  <?php 
-                    $query = "SELECT name, userid FROM user_details";
-                    $result = mysqli_query($connect, $query);
-                  ?>
-                  <?php while ($row1 = mysqli_fetch_array($result)):; ?>
-                      <option value=<?php echo $row1[1]; ?>><?php echo $row1[0]; ?></option>
-                    <?php endwhile; ?>
-                  <option selected="selected" value="allusers" >All users</option>
-                </select>
-              </div>
-            </div>
-                <label>Date range:</label>
-                <div class="input-group" >
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <div class="col-md-6"   >
-                  <input type="text" class="form-control pull-right" id="reservation" name="reservation">
+                <form action = "upload.php" enctype="multipart/form-data" method = "post">
+                 <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <input type="file" name = "fileupload" id="exampleInputFile">
+
+                  <p class="help-block">Example block-level help text here.</p>
                 </div>
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
               </form> 
@@ -284,49 +269,6 @@ else {
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
-        <!-- modal  -->
-        <div class="modal fade" id="modal-default">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Edit MIS</h4>
-              </div>
-              <div class="modal-body">
-                <!-- <p>Amount...&hellip;</p> -->
-              <form action="misprocess.php" method="post">
-                <input type="hidden" class="form-control" id="userid" name="userid">
-                Customer Name:<br>
-                <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Customer Name">
-                Los/APP No:<br>
-                <input type="text" class="form-control" id="los_number" name="los_number" placeholder="Los Number">
-                Loan Amount:<br>
-                <input type="text" class="form-control" id="loan_amount" name="loan_amount" placeholder="Loan Amount">
-                Net Loan Amount:<br>
-                <input type="text" class="form-control" id="net_loan_amount" name="net_loan_amount" placeholder="Net Loan Amount">
-                Disbursed Date:<br>
-                <input type="text" class="form-control" id="disbursed_date" name="disbursed_date" placeholder="Disbursed Date">
-                Location:<br>
-                <input type="text" class="form-control" id="location" name="location" placeholder="Location">
-                Loan Type:<br>
-                <input type="text" class="form-control" id="loan_type" name="loan_type" placeholder="Loan Type">
-                Entity:<br>
-                <input type="text" class="form-control" id="entity" name="entity" placeholder="entity">
-                Bank Name:<br>
-                <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Bank Name">
-                <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <input type="submit" class="btn btn-primary modelamount" value="Submit">
-                </div>
-                </form>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        </div>
-        <!-- /.modal close -->
     </section>
     <!-- /.content -->
   </div>

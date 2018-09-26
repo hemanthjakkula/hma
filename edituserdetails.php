@@ -1,8 +1,4 @@
-<?php 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-require 'connect_db.php'; ?>
+<?php require 'connect_db.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,7 +107,7 @@ require 'connect_db.php'; ?>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="mis_compare.php">
             <i class="fa fa-files-o"></i>
             <span>MIS COMPARE</span>
             <span class="pull-right-container">
@@ -185,7 +181,7 @@ if ($result->num_rows > 0) {
                 </tr>";
                        //output the data of each row
                    while ($row = $result->fetch_assoc()) {
-                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid=".$row["userid"]." data-name=".$row["name"]." data-email=".$row["email"]." data-referee_name=".$row["referee_name"]." data-referee_mobile=".$row["referee_mobile"]." data-password=".$row["password"]." data-joining_date=".$row["joining_date"]." data-experience=".$row["experience"]." data-address=".$row["address"].">Edit</button></td></tr>";
+                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["email"]. "</td><td>" . $row["referee_name"]. "</td><td>" . $row["referee_mobile"]. "</td><td>" . $row["password"]. "</td><td>" . $row["joining_date"]."</td><td>" . $row["experience"]."</td><td>" . $row["advance_amount"]."</td><td>" . $row["address"]."</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid='".$row["userid"]."' data-name=".$row["name"]." data-email=".$row["email"]." data-referee_name='".$row["referee_name"]."' data-referee_mobile=".$row["referee_mobile"]." data-password=".$row["password"]." data-joining_date=".$row["joining_date"]." data-experience=".$row["experience"]." data-address=".$row["address"].">Edit</button></td></tr>";
                      }
                 echo "</table>";
                       }

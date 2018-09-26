@@ -110,7 +110,7 @@ session_start();
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="mis_compare.php">
             <i class="fa fa-files-o"></i>
             <span>MIS COMPARE</span>
             <span class="pull-right-container">

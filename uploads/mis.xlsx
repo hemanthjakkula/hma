@@ -1,0 +1,135 @@
+SELECT * FROM mis_details LIMIT 10 <br />
+<b>Notice</b>:  Undefined variable: username in <b>C:\xampp\htdocs\hma\excel.php</b> on line <b>23</b><br />
+
+		<table class="table" border="1" >
+			<tr>
+				<th>CUSTOMER NAME</th>
+				<th>LOS/UAP NUMBER</th>
+				<th>Loan Amount</th>
+				<th>Net Loan Amount</th>
+				<th>Disbursed Date</th>
+				<th>Location</th>
+				<th>Loan Type</th>
+				<th>Entity</th>
+				<th>Bank Name</th>
+		
+				<tr>
+				<td>egegtrggtgtgtggggggggggggggggggg</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0000-00-00</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>fullerton</td>
+				</tr>
+			
+				<tr>
+				<td>mkoiuhf</td>
+				<td>10247</td>
+				<td>900000</td>
+				<td>850000</td>
+				<td>2018-09-21</td>
+				<td>tadipatri</td>
+				<td>pl</td>
+				<td>pvt</td>
+				<td>AXIS</td>
+				</tr>
+			
+				<tr>
+				<td>ddkff vvjvv</td>
+				<td>20157</td>
+				<td>500000</td>
+				<td>500000</td>
+				<td>2018-09-21</td>
+				<td>kurnool</td>
+				<td>pl</td>
+				<td>govt</td>
+				<td>hdfc</td>
+				</tr>
+			
+				<tr>
+				<td>dfbdgbg </td>
+				<td>56595</td>
+				<td>3232</td>
+				<td>26548</td>
+				<td>2018-09-21</td>
+				<td>knl</td>
+				<td>pl</td>
+				<td>pvt</td>
+				<td>ICICI</td>
+				</tr>
+			
+				<tr>
+				<td>fbbtgbtbtb</td>
+				<td>154564</td>
+				<td>0</td>
+				<td>0</td>
+				<td>0000-00-00</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</tr>
+			
+				<tr>
+				<td>vdfbfdbfd</td>
+				<td>259632</td>
+				<td>1425</td>
+				<td>236</td>
+				<td>2018-09-05</td>
+				<td>sfff</td>
+				<td>lap</td>
+				<td></td>
+				<td></td>
+				</tr>
+			
+				<tr>
+				<td>anjibabu</td>
+				<td>2018657</td>
+				<td>300000</td>
+				<td>200000</td>
+				<td>2018-09-21</td>
+				<td>knl</td>
+				<td>pl</td>
+				<td>pvt </td>
+				<td>SRIRAM</td>
+				</tr>
+			
+				<tr>
+				<td>hemanth</td>
+				<td>2583471</td>
+				<td>32104587</td>
+				<td>2000000</td>
+				<td>2018-09-21</td>
+				<td>mahaboob nagar</td>
+				<td>bl</td>
+				<td></td>
+				<td>bajaj</td>
+				</tr>
+			
+				<tr>
+				<td>dwjvjnvjvnedj</td>
+				<td>20154874</td>
+				<td>20154</td>
+				<td>25637</td>
+				<td>2018-09-19</td>
+				<td>hyderabad</td>
+				<td>pl</td>
+				<td>govt</td>
+				<td>fullerton</td>
+				</tr>
+			
+				<tr>
+				<td>eveveve</td>
+				<td>20215874</td>
+				<td>200000</td>
+				<td>300000</td>
+				<td>2018-09-04</td>
+				<td>mahaboob nagar</td>
+				<td>lap</td>
+				<td>jp</td>
+				<td></td>
+				</tr>
+			</table>

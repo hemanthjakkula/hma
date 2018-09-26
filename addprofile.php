@@ -180,7 +180,7 @@ require 'connect_db.php';
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="mis_compare.php">
             <i class="fa fa-files-o"></i>
             <span>MIS COMPARE</span>
             <span class="pull-right-container">
@@ -284,7 +284,7 @@ require 'connect_db.php';
                     </div>
                   </div>
 
-                  <center> <h2>ENTER COMMISSION DETAILS</h2> </center>
+                  <center> <h2>ENTER PAYOUT DETAILS</h2> </center>
                   <table id='table_id' class='table table-hover' style="width: 100%" >
                     <tr>
                       <th>Bank name</th>

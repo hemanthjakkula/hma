@@ -1,9 +1,9 @@
 <?php
 
-use hma\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\IOFactory;
+use vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\IOFactory;
 // check this in header.php file
 //use hma\vendor\PhpOffice\phpspreadsheet\src\PhpSpreadsheet\Helper\Sample;
-use hma\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Helper\Sample;
+use vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Helper\Sample;
 
 require_once  $_SERVER['DOCUMENT_ROOT'] . '/hma/vendor/phpoffice/phpspreadsheet/src/Bootstrap.php';
 //remove header
@@ -22,3 +22,6 @@ $spreadsheet = $reader->load($inputFileName);
 
 $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 var_dump($sheetData);
+
+
+//C:\xampp\htdocs\hma\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Helper
