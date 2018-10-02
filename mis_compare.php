@@ -178,7 +178,7 @@ session_start();
                   <label for="exampleInputFile">File input</label>
                   <input type="file" name = "fileupload" id="exampleInputFile">
 
-                  <p class="help-block">Upload on Excel sheets.</p>
+                  <p class="help-block">Upload only Excel sheets with (.xlsx extension).</p>
                 </div>
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
               </form> 

@@ -232,7 +232,6 @@ if (isset($_POST["user"], $_POST["reservation"])) {
                       else {
                         $select_all = "SELECT * FROM mis_details LIMIT 10 ";
                       }
-
 $result = $connect->query($select_all);
 
 if ($result->num_rows > 0) {

@@ -21,18 +21,20 @@ $spreadsheet = $reader->load($inputFileName);
 $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
 
-$query = '';
-for ($row=2; $row <=($sheetData) ; $row++) { 
+ $query = '';
+ for ($row=2; $row <=($sheetData) ; $row++) { 
 
-	$xx = "'" . implode("','", $sheetData[$row]) . "'";
+ 	$xx = "'" . implode("','", $sheetData[$row]) . "'";
 	
-	$qwerty = gettype($xx);
+ 	$qwerty = gettype($xx);
 	
-	// to explode and get required values
-	 $split_value = explode(',', $xx);
-	 $query = "INSERT INTO excel(los, amount, bank) VALUES ($split_value[0], $split_value[6], $split_value[14]);";
-	 mysqli_query($connect, $query);
-}
+ 	// to explode and get required values
+ 	 $split_value = explode(',', $xx);
+ 	 $query = "INSERT INTO excel(los, amount, bank) VALUES ($split_value[0], $split_value[6], $split_value[14]);";
+ 	 mysqli_query($connect, $query);
+ }
+	 echo "<script>location.href='../../layout.php'</script>";
+
 mysqli_close($connect);
 ?>
 

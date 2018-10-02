@@ -24,8 +24,13 @@ if (isset($_FILES['fileupload'])) {
 				# code...
 				echo $fileupload_destination;
 				//header('location:mis_compare.php');
-				echo "<br/>";
-				echo "Successfully uploaded in uploads folder";
+				$message = "File uploaded Successfully";
+				echo "<script type = 'text/javascript'>alert('$message');</script> ";
+      			//header will not work we should use Javascript
+      			echo "<script>location.href='mis_compare.php'</script>";
+
+				//echo "<br/>";
+				//echo "Successfully uploaded in uploads folder";
 			}
 		}
 	}

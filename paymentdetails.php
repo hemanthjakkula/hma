@@ -1,4 +1,7 @@
-<?php require 'connect_db.php' ?>
+<?php require 'connect_db.php';
+session_start();
+
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -175,26 +178,8 @@
                   <?php while ($row1 = mysqli_fetch_array($result)):; ?>
                       <option value=<?php echo $row1[1]?>><?php echo $row1[0]; ?></option>
                     <?php endwhile; ?>
-                  <option selected="selected">All users</option>
+                  <option selected="selected" value = "allusers">All users</option>
                 </select>
-                <?php
-                    if (isset($_POST["user"], $_POST["reservation"])) {
-                      # code...
-                      $selected = $_POST['user'];
-                      $array = explode("-", $_POST["reservation"]);
-                      echo "This is selected:".$selected;
-                      echo "<br>";
-                      for ($i=0; $i < count($array) ; $i++) { 
-                        ${'var'.$i} = $array[$i];
-                      }
-                      echo "var0 is ".$var0;
-                      echo "<br>";
-                      echo "var1 is ".$var1;
-                    }
-                    else {
-                      echo "nothing selected";
-                    }
-                      ?>
               </div>
             </div>
             <label>Date range:</label>
@@ -218,23 +203,42 @@
           <div class="box">
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-                <?php 
-                $select_all = " SELECT payment_details.userid, user_details.name, payment_details.amount_given, payment_details.amount_given_date FROM payment_details JOIN user_details ON user_details.userid = payment_details.userid " ;
-                
+              <?php 
+              if (isset($_POST["user"], $_POST["reservation"])) {
+                      # code...
+                      $selected = $_POST['user'];
+                      $array = explode("-", $_POST["reservation"]);
+                      for ($i=0; $i < count($array) ; $i++) {
+                        ${'var'.$i} = $array[$i];
+                      }
+                      //converting date format to mysql format
+                      $start_date = date("Y/m/d", strtotime($var0));
+                      $end_date = date("Y/m/d", strtotime($var1));
+
+                      if($_POST["user"] == 'allusers') {
+                        $user_clause = "";
+                      } else {
+                        $user_clause = "payment_details.userid = '".$_POST["user"]."' AND";
+                      }
+
+                      $select_all = "  SELECT payment_details.userid, user_details.name, payment_details.amount_given, payment_details.amount_given_date FROM payment_details JOIN user_details ON user_details.userid = payment_details.userid WHERE ".$user_clause." amount_given_date >= CAST('".$start_date."' AS DATE) AND amount_given_date <= CAST('".$end_date."' AS DATE) " ;
+                      }
+                      else {
+                        $select_all = " SELECT payment_details.userid, user_details.name, payment_details.amount_given, payment_details.amount_given_date FROM payment_details JOIN user_details ON user_details.userid = payment_details.userid LIMIT 10" ;
+                      }
                 $result = $connect->query($select_all);
 
                 if ($result->num_rows > 0) {
                   echo "<tr>";
-                  echo "<table class='table table-hover'>
+                  echo "<table id='table_id' class='table table-hover'>
                   <tr>
-                  <th>ID</th>
                   <th>USER NAME</th>
                   <th>Paid Amount</th>
                   <th>Paid Date</th>
                   </tr>";
                 //output the data of each row
                 while ($row = $result->fetch_assoc()) {
-                      echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["name"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["amount_given_date"]. "</td></tr>" ;
+                      echo "<tr><td>" . $row["name"]. "</td><td>" . $row["amount_given"]. "</td><td>" . $row["amount_given_date"]. "</td></tr>" ;
                       }
                        echo "</table>";
                 }
