@@ -1,4 +1,4 @@
-<?php 
+<?php
 require 'connect_db.php';
 session_start();
 ?>
@@ -13,7 +13,7 @@ session_start();
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/jquery-table2excel/dist/jquery.table2excel.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script> 
+  <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
   <!--Datepicker scripts include -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -180,9 +180,11 @@ session_start();
                   <p class="help-block">Upload only Excel sheets with (.xlsx extension).</p>
                 </div>
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
-              </form> 
+              </form>
+              <br>
+              <form action="compare.php" method="post"><input type="submit" name="submit" class="btn btn-success" value="Compare"></form>
 
-<?php 
+<?php
 if (isset($_FILES['fileupload'])) {
   # code...
   $fileupload = $_FILES['fileupload'];
@@ -194,7 +196,7 @@ if (isset($_FILES['fileupload'])) {
   //extension validation
   $fileupload_ext = explode('.', $fileupload_name);
 
-  $fileupload_ext = strtolower(end($fileupload_ext)); 
+  $fileupload_ext = strtolower(end($fileupload_ext));
 
   $allowed = array('xlsx', 'xls');
 
@@ -203,7 +205,7 @@ if (isset($_FILES['fileupload'])) {
       //$fileupload_name_new = uniqid('', true).'.'. $fileupload_ext;
       $fileupload_name_new = "mis.xlsx";
       $fileupload_destination = 'uploads/' . $fileupload_name_new;
-    
+
       if (move_uploaded_file($fileupload_tmp, $fileupload_destination)) {
         $message = "File uploaded Successfully";
         echo "<script type = 'text/javascript'>alert('$message');</script> ";
@@ -211,7 +213,7 @@ if (isset($_FILES['fileupload'])) {
             echo "<script>location.href='mis_compare.php'</script>";
       }
     }
-    
+
   }
   else {
       $error_msg = "You have uploaded a file which is not Excel.";
@@ -254,7 +256,7 @@ if (isset($_POST["reservation"])) {
                       $start_date = date("Y/m/d", strtotime($var0));
                       $end_date = date("Y/m/d", strtotime($var1));
 
-                      $select_all = "SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM (SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM  mis_details UNION ALL SELECT excel.los, excel.amount, excel.bank FROM excel) mis_details GROUP BY mis_details.los_number HAVING COUNT(*) = 1 ORDER BY mis_details.los_number, mis_details.net_loan_amount";
+                      $select_all = "SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM (SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM  mis_details UNION ALL SELECT excel.los, excel.amount, excel.bank FROM excel) mis_details GROUP BY mis_details.los_number HAVING COUNT(*) = 1 ORDER BY mis_details.los_number, mis_details.net_loan_amount ";
 
                       //$select_all = " SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
                       }
