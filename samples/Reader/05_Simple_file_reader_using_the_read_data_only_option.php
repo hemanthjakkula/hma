@@ -22,11 +22,10 @@ $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
 
  $query = '';
- for ($row=2; $row <=($sheetData) ; $row++) { 
+ for ($row=2; $row <=count($sheetData) ; $row++) { 
 
  	$xx = "'" . implode("','", $sheetData[$row]) . "'";
 	
- 	$qwerty = gettype($xx);
 	
  	// to explode and get required values
  	 $split_value = explode(',', $xx);

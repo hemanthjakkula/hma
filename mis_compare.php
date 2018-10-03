@@ -158,7 +158,6 @@ session_start();
     <section class="content-header">
       <h1>
         MIS DETAILS
-        <small>Blank example to the fixed layout</small>
       </h1>
     </section>
 
@@ -173,7 +172,7 @@ session_start();
             <div class="col-md-4">
               <div class="form-group">
                 <!-- here name="user" is important -->
-                <form action = "upload.php" enctype="multipart/form-data" method = "post">
+                <form action = "mis_compare.php" enctype="multipart/form-data" method = "post">
                  <div class="form-group">
                   <label for="exampleInputFile">File input</label>
                   <input type="file" name = "fileupload" id="exampleInputFile">
@@ -182,10 +181,61 @@ session_start();
                 </div>
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
               </form> 
+
+<?php 
+if (isset($_FILES['fileupload'])) {
+  # code...
+  $fileupload = $_FILES['fileupload'];
+  //getting properties of the file
+  $fileupload_name = $fileupload['name'];
+  $fileupload_tmp = $fileupload['tmp_name'];
+  $fileupload_size = $fileupload['size'];
+  $fileupload_error = $fileupload['error'];
+  //extension validation
+  $fileupload_ext = explode('.', $fileupload_name);
+
+  $fileupload_ext = strtolower(end($fileupload_ext)); 
+
+  $allowed = array('xlsx', 'xls');
+
+  if(in_array($fileupload_ext, $allowed)) {
+    if ($fileupload_error === 0) {
+      //$fileupload_name_new = uniqid('', true).'.'. $fileupload_ext;
+      $fileupload_name_new = "mis.xlsx";
+      $fileupload_destination = 'uploads/' . $fileupload_name_new;
+    
+      if (move_uploaded_file($fileupload_tmp, $fileupload_destination)) {
+        $message = "File uploaded Successfully";
+        echo "<script type = 'text/javascript'>alert('$message');</script> ";
+            //header will not work we should use Javascript
+            echo "<script>location.href='mis_compare.php'</script>";
+      }
+    }
+    
+  }
+  else {
+      $error_msg = "You have uploaded a file which is not Excel.";
+      echo "<script type = 'text/javascript'>alert('$error_msg');</script> ";
+            //header will not work we should use Javascript
+            echo "<script>location.href='mis_compare.php'</script>";
+
+    }
+}
+?>
+<form action="mis_compare.php" method="post">
+               <label>Select Date range to get MIS and Compare with the uploaded Excel:</label>
+                <div class="input-group" >
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <div class="col-md-6"   >
+                  <input type="text" class="form-control pull-right" id="reservation" name="reservation">
+                </div>
+                  <input type="submit" name="submit" class="btn btn-success" value="submit">
                 </div>
                 <!-- /.input group -->
               </div>
-              <!-- /.form group -->
+            </form>
         </div>
         <div class="box-body">
           <div class="row">
@@ -195,9 +245,7 @@ session_start();
             <div class="box-body table-responsive no-padding">
 <?php
 
-if (isset($_POST["user"], $_POST["reservation"])) {
-                      # code...
-                      $selected = $_POST['user'];
+if (isset($_POST["reservation"])) {
                       $array = explode("-", $_POST["reservation"]);
                       for ($i=0; $i < count($array) ; $i++) {
                         ${'var'.$i} = $array[$i];
@@ -206,13 +254,9 @@ if (isset($_POST["user"], $_POST["reservation"])) {
                       $start_date = date("Y/m/d", strtotime($var0));
                       $end_date = date("Y/m/d", strtotime($var1));
 
-                      if($_POST["user"] == 'allusers') {
-                        $user_clause = "";
-                      } else {
-                        $user_clause = "userid = '".$_POST["user"]."' AND";
-                      }
+                      $select_all = "SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM (SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM  mis_details UNION ALL SELECT excel.los, excel.amount, excel.bank FROM excel) mis_details GROUP BY mis_details.los_number HAVING COUNT(*) = 1 ORDER BY mis_details.los_number, mis_details.net_loan_amount";
 
-                      $select_all = " SELECT * FROM mis_details WHERE ".$user_clause." disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
+                      //$select_all = " SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
                       }
                       else {
                         $select_all = "SELECT * FROM mis_details LIMIT 10 ";
@@ -247,18 +291,6 @@ else {
 }
 ?>
 <!-- code for table2excel -->
-            <div id="live_data"></div>
-            <form action="excel.php" method="post">
-              <?php
-              if (isset($_POST["user"]))
-              {
-                $_SESSION['username'] = $_POST["user"]; 
-                $_SESSION['start_date'] = $start_date;
-                $_SESSION['end_date'] = $end_date;
-              }
-               ?>
-              <input type="submit" name="export_excel" class="btn btn-success" value="Import to Excel">
-            </form>
             </div>
             <!-- /.box-body -->
           </div>
