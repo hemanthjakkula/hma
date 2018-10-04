@@ -1,6 +1,7 @@
 <?php
 require 'connect_db.php';
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -157,7 +158,7 @@ session_start();
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        MIS DETAILS
+        MIS COMPARE
       </h1>
     </section>
 
@@ -182,7 +183,9 @@ session_start();
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
               </form>
               <br>
-              <form action="compare.php" method="post"><input type="submit" name="submit" class="btn btn-success" value="Compare"></form>
+              <form action="compare.php" method="post">
+                <input type="submit" name="submit" class="btn btn-success" value="Compare" >
+              </form>
 
 <?php
 if (isset($_FILES['fileupload'])) {
@@ -230,7 +233,7 @@ if (isset($_FILES['fileupload'])) {
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <div class="col-md-6"   >
+                  <div class="col-md-10"   >
                   <input type="text" class="form-control pull-right" id="reservation" name="reservation">
                 </div>
                   <input type="submit" name="submit" class="btn btn-success" value="submit">
@@ -239,6 +242,7 @@ if (isset($_FILES['fileupload'])) {
               </div>
             </form>
         </div>
+
         <div class="box-body">
           <div class="row">
         <div class="col-xs-12">
@@ -246,24 +250,23 @@ if (isset($_FILES['fileupload'])) {
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
 <?php
-
 if (isset($_POST["reservation"])) {
                       $array = explode("-", $_POST["reservation"]);
                       for ($i=0; $i < count($array) ; $i++) {
                         ${'var'.$i} = $array[$i];
                       }
                       //converting date format to mysql format
-                      $start_date = date("Y/m/d", strtotime($var0));
-                      $end_date = date("Y/m/d", strtotime($var1));
+                      $start_date_compare = date("Y/m/d", strtotime($var0));
+                      $end_date_compare = date("Y/m/d", strtotime($var1));
 
-                      $select_all = "SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM (SELECT mis_details.los_number, mis_details.net_loan_amount, mis_details.bank_name FROM  mis_details UNION ALL SELECT excel.los, excel.amount, excel.bank FROM excel) mis_details GROUP BY mis_details.los_number HAVING COUNT(*) = 1 ORDER BY mis_details.los_number, mis_details.net_loan_amount ";
+                      $_SESSION["start_date_compare"] = $start_date_compare;
+                      $_SESSION["end_date_compare"] = $end_date_compare;
 
-                      //$select_all = " SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$start_date."' AS DATE) AND disbursed_date <= CAST('".$end_date."' AS DATE) " ;
+                      $select_all = " SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$start_date_compare."' AS DATE) AND disbursed_date <= CAST('".$end_date_compare."' AS DATE) " ;
                       }
                       else {
                         $select_all = "SELECT * FROM mis_details LIMIT 10 ";
                       }
-
 $result = $connect->query($select_all);
 
 if ($result->num_rows > 0) {
@@ -280,11 +283,13 @@ if ($result->num_rows > 0) {
                   <th>Loan Type</th>
                   <th>Entity</th>
                   <th>Bank Name</th>
-                  <th>Edit</th>
+                  <th>Remarks</th>
+                  <th>Actions</th>
+                  <th>het</th>
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid='".$row["userid"]."' data-customer_name='".$row["customer_name"]."' data-los_number='".$row["los_number"]."' data-loan_amount='".$row["loan_amount"]."' data-net_loan_amount='".$row["net_loan_amount"]."' data-disbursed_date='".$row["disbursed_date"]."' data-location='".$row["location"]."' data-loan_type='".$row["loan_type"]."' data-entity='".$row["entity"]."'>Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td>><td>" . $row["remarks"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid='".$row["userid"]."' data-customer_name='".$row["customer_name"]."' data-los_number='".$row["los_number"]."' data-loan_amount='".$row["loan_amount"]."' data-net_loan_amount='".$row["net_loan_amount"]."' data-disbursed_date='".$row["disbursed_date"]."' data-location='".$row["location"]."' data-loan_type='".$row["loan_type"]."' data-entity='".$row["entity"]."' data-bank_name='".$row["bank_name"]."'>Edit</button></td><td><form action = 'mis_compare_deleteprocess.php' method='post'><input type='hidden' name='los' value= '".$row["los_number"]."'> <input type='submit' name='submit' value='Delete'></form></td></tr>";
   }
   echo "</table>";
 }
@@ -292,7 +297,6 @@ else {
   echo "0 results";
 }
 ?>
-<!-- code for table2excel -->
             </div>
             <!-- /.box-body -->
           </div>
@@ -303,10 +307,58 @@ else {
         <!-- /.box-body -->
       </div>
       <!-- /.box -->
+      <!-- modal  -->
+        <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit MIS</h4>
+              </div>
+              <div class="modal-body">
+                <!-- <p>Amount...&hellip;</p> -->
+              <form action="mis_compare_process.php" method="post">
+                <input type="hidden" class="form-control" id="userid" name="userid">
+                Customer Name:<br>
+                <input type="text" class="form-control" id="customer_name" name="customer_name" placeholder="Customer Name">
+                Los/APP No:<br>
+                <input type="text" class="form-control" id="los_number" name="los_number" placeholder="Los Number">
+                Loan Amount:<br>
+                <input type="text" class="form-control" id="loan_amount" name="loan_amount" placeholder="Loan Amount">
+                Net Loan Amount:<br>
+                <input type="text" class="form-control" id="net_loan_amount" name="net_loan_amount" placeholder="Net Loan Amount">
+                Disbursed Date:<br>
+                <input type="text" class="form-control" id="disbursed_date" name="disbursed_date" placeholder="Disbursed Date">
+                Location:<br>
+                <input type="text" class="form-control" id="location" name="location" placeholder="Location">
+                Loan Type:<br>
+                <input type="text" class="form-control" id="loan_type" name="loan_type" placeholder="Loan Type">
+                Entity:<br>
+                <input type="text" class="form-control" id="entity" name="entity" placeholder="entity">
+                Bank Name:<br>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Bank Name">
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary modelamount" value="Submit">
+                </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        </div>
+        <!-- /.modal close -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <form action="mis_compare_deleteprocess.php" method="post" >
+    <input type="hidden"  id="los_number" name="los_number">
+     <input type="hidden" id="userid" name="userid"> 
+    
+  </form>
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -370,13 +422,6 @@ else {
   $(function () {
     //Date range picker
     $('#reservation').daterangepicker()
-
-    $("#yourHtmTable").table2excel({
-    exclude: ".excludeThisClass",
-    name: "Worksheet Name",
-    filename: "SomeFile" //do not include extension
-    });
-
   });
 
 </script>

@@ -158,7 +158,6 @@ session_start();
     <section class="content-header">
       <h1>
         MIS DETAILS
-        <small>Blank example to the fixed layout</small>
       </h1>
     </section>
 
@@ -211,7 +210,7 @@ session_start();
 <?php
 
 if (isset($_POST["user"], $_POST["reservation"])) {
-                      # code...
+  
                       $selected = $_POST['user'];
                       $array = explode("-", $_POST["reservation"]);
                       for ($i=0; $i < count($array) ; $i++) {
@@ -252,7 +251,7 @@ if ($result->num_rows > 0) {
                 </tr>";
   //output the data of each row
   while ($row = $result->fetch_assoc()) {
-    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid='".$row["userid"]."' data-customer_name='".$row["customer_name"]."' data-los_number='".$row["los_number"]."' data-loan_amount='".$row["loan_amount"]."' data-net_loan_amount='".$row["net_loan_amount"]."' data-disbursed_date='".$row["disbursed_date"]."' data-location='".$row["location"]."' data-loan_type='".$row["loan_type"]."' data-entity='".$row["entity"]."'>Edit</button></td></tr>";
+    echo "<tr><td>" . $row["userid"]. "</td><td>" . $row["customer_name"]. "</td><td>" . $row["los_number"]. "</td><td>" . $row["loan_amount"]. "</td><td>" . $row["net_loan_amount"]. "</td><td>" . $row["disbursed_date"]. "</td><td>" . $row["location"]. "</td><td>" . $row["loan_type"]. "</td><td>" . $row["entity"]. "</td><td>" . $row["bank_name"]. "</td><td><button type='button' class='btn btn-info testclass' class='open-modal' data-toggle='modal' data-target='#modal-default' data-userid='".$row["userid"]."' data-customer_name='".$row["customer_name"]."' data-los_number='".$row["los_number"]."' data-loan_amount='".$row["loan_amount"]."' data-net_loan_amount='".$row["net_loan_amount"]."' data-disbursed_date='".$row["disbursed_date"]."' data-location='".$row["location"]."' data-loan_type='".$row["loan_type"]."' data-entity='".$row["entity"]."' data-bank_name = '".$row["bank_name"]."'>Edit</button></td></tr>";
   }
   echo "</table>";
 }

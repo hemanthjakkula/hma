@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+$start_date_compare = $_SESSION['start_date_compare'];
+$end_date_compare = $_SESSION['end_date_compare'];
+
+
 if (!isset($_SESSION["logged_in"])) {
   session_destroy();
   header('Location: login.php');
@@ -8,6 +13,8 @@ if (!isset($_SESSION["logged_in"])) {
 // enable errors
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+
 
 // Clear white spaces and convert to upper case
 function clean_string($string) {
@@ -19,9 +26,7 @@ function clean_string($string) {
 require 'connect_db.php';
 
 // Get all rows for particular date bracket
-$from  = '2018-09-01'; // get from session
-$to = '2018-09-30'; // get from session
-$query = "SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$from."' AS DATE) AND disbursed_date <= CAST('".$to."' AS DATE)";
+$query = "SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$start_date_compare."' AS DATE) AND disbursed_date <= CAST('".$end_date_compare."' AS DATE)";
 $mis_result = mysqli_query($connect, $query);
 
 // Comparing
@@ -80,7 +85,9 @@ while ($mis_row = $mis_result -> fetch_assoc()) {
 
   echo "-----------------------------------------";
 }
-
+echo $start_date_compare;
+echo "<br>";
+echo $end_date_compare;
 echo "Comparison done! Please redirect me";
 
  ?>
