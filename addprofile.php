@@ -1,6 +1,10 @@
 <?php
 
 require 'connect_db.php';
+session_start();
+if(isset($_GET['logged_in'])) {
+      $_SESSION['logged_in']='admin';
+    }
 
  if (isset($_POST['submit'])) {
   $name = $_POST['name'];

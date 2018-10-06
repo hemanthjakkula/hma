@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(isset($_GET['logged_in'])) {
+      $_SESSION['logged_in']='admin';
+    }
 
 $start_date_compare = $_SESSION['start_date_compare'];
 $end_date_compare = $_SESSION['end_date_compare'];
