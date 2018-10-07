@@ -1,8 +1,7 @@
-<?php require 'connect_db.php' ;
-session_start();
-if(isset($_GET['logged_in'])) {
-      $_SESSION['logged_in']='admin';
-    }
+<?php
+
+require 'connect_db.php' ;
+
 ?>
 
 <!DOCTYPE html>

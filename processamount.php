@@ -1,9 +1,6 @@
 <?php
 require 'connect_db.php';
-session_start();
-if(isset($_GET['logged_in'])) {
-      $_SESSION['logged_in']='admin';
-}
+
 $update1 = "INSERT INTO payment_details (userid, amount_given, amount_given_date) VALUES (".$_POST['userid'].", ".$_POST['amount'].", NOW() ) ";
  $update = "UPDATE amount_details set amount_given = amount_given + ".$_POST["amount"].", balance_amount = balance_amount - ".$_POST["amount"]." WHERE userid  = " . $_POST["userid"];
 $connect->query($update);

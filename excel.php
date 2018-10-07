@@ -1,14 +1,10 @@
 <?php 
-
-session_start();
-if(isset($_GET['logged_in'])) {
-      $_SESSION['logged_in']='admin';
-}
+require 'connect_db.php';
 
 $_POST["user"] = $_SESSION['username'];
 $start_date = $_SESSION['start_date'];
 $end_date = $_SESSION['end_date'];
-require 'connect_db.php';
+
 $output = '';
 if(isset($_POST["export_excel"]))
 {

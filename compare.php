@@ -1,21 +1,9 @@
 <?php
-session_start();
-if(isset($_GET['logged_in'])) {
-      $_SESSION['logged_in']='admin';
-    }
+// Connect to db
+require 'connect_db.php';
 
 $start_date_compare = $_SESSION['start_date_compare'];
 $end_date_compare = $_SESSION['end_date_compare'];
-
-
-if (!isset($_SESSION["logged_in"])) {
-  session_destroy();
-  header('Location: login.php');
-}
-
-// enable errors
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 
 
@@ -25,8 +13,7 @@ function clean_string($string) {
   return strtoupper($nowhites);
 }
 
-// Connect to db
-require 'connect_db.php';
+
 
 // Get all rows for particular date bracket
 $query = "SELECT * FROM mis_details WHERE disbursed_date >= CAST('".$start_date_compare."' AS DATE) AND disbursed_date <= CAST('".$end_date_compare."' AS DATE)";
